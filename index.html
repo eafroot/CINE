@@ -16,31 +16,46 @@
 
 <style>
   :root{
-    --bg:#0D0A12;
-    --bg-2:#120D18;
-    --surface:#181221;
-    --surface-hi:#1F1729;
-    --surface-hi2:#271C34;
-    --outline:rgba(216,196,255,.12);
-    --outline-strong:rgba(216,196,255,.22);
+    --bg:#05030B;
+    --bg-2:#0B0616;
 
-    --primary:#C9A6FF;
-    --primary-strong:#B388FF;
-    --secondary:#FF9CC0;
-    --tertiary:#8AD9D5;
+    --surface:#100A1E;
+    --surface-hi:#160D28;
+    --surface-hi2:#1D1035;
 
-    --on:#F3ECFB;
-    --on-muted:#B7A8C9;
-    --on-dim:#8A7C9C;
+    --outline:rgba(168,85,247,.12);
+    --outline-strong:rgba(168,85,247,.25);
+
+    --primary:#8A2DFF;
+    --primary-strong:#A855F7;
+    --secondary:#6D28FF;
+    --tertiary:#B57CFF;
+
+    --on:#FFFFFF;
+    --on-muted:#C8C0DA;
+    --on-dim:#9A90B5;
 
     --ok:#7EE0B8;
     --err:#FF9DA3;
 
-    --grad:linear-gradient(135deg,var(--primary) 0%,var(--secondary) 100%);
-    --r-lg:32px; --r-md:24px; --r-sm:16px; --r-pill:999px;
+    --grad:linear-gradient(
+        135deg,
+        #6D28FF 0%,
+        #8A2DFF 50%,
+        #A855F7 100%
+    );
+
+    --r-lg:32px;
+    --r-md:24px;
+    --r-sm:16px;
+    --r-pill:999px;
+
     --ease:cubic-bezier(.2,.8,.2,1);
-    --shadow:0 24px 60px -20px rgba(0,0,0,.7);
-  }
+
+    --shadow:
+        0 24px 60px -20px rgba(0,0,0,.7),
+        0 0 40px rgba(138,45,255,.15);
+}
 
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
@@ -59,9 +74,33 @@
   .field{position:fixed;inset:0;z-index:-1;overflow:hidden;background:
     radial-gradient(120% 90% at 50% -10%, var(--bg-2), var(--bg) 60%);}
   .blob{position:absolute;border-radius:50%;filter:blur(80px);opacity:.45;will-change:transform}
-  .blob.b1{width:48vw;height:48vw;background:#7A4FCF;top:-12vw;left:-8vw;animation:drift1 22s var(--ease) infinite alternate}
-  .blob.b2{width:42vw;height:42vw;background:#D45A8E;bottom:-14vw;right:-10vw;animation:drift2 26s var(--ease) infinite alternate}
-  .blob.b3{width:34vw;height:34vw;background:#3E8E8A;top:38%;left:40%;opacity:.3;animation:drift3 30s var(--ease) infinite alternate}
+  .blob.b1{
+    width:48vw;
+    height:48vw;
+    background:#6D28FF;
+    top:-12vw;
+    left:-8vw;
+    opacity:.45;
+    animation:drift1 22s var(--ease) infinite alternate;
+}
+  .blob.b2{
+    width:42vw;
+    height:42vw;
+    background:#8A2DFF;
+    bottom:-14vw;
+    right:-10vw;
+    opacity:.35;
+    animation:drift2 26s var(--ease) infinite alternate;
+}
+  .blob.b3{
+    width:34vw;
+    height:34vw;
+    background:#A855F7;
+    top:38%;
+    left:40%;
+    opacity:.18;
+    animation:drift3 30s var(--ease) infinite alternate;
+}
   @keyframes drift1{to{transform:translate(8vw,6vh) scale(1.15)}}
   @keyframes drift2{to{transform:translate(-7vw,-5vh) scale(1.1)}}
   @keyframes drift3{to{transform:translate(-10vw,8vh) scale(.85)}}
@@ -300,7 +339,8 @@
     <a href="#top" class="brand">
       <img src="/Logos/logo.png" alt="" class="mark" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
       <span class="mark-fallback">K</span>
-      CINE+
+      <span class="cine-brand">
+        CINE<span class="plus">+</span></span>
     </a>
     <a href="#descargar" class="nav__cta">Descargar APK</a>
   </div>
