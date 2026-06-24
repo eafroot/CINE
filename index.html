@@ -114,8 +114,16 @@
   .nav__in{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
   .brand{display:flex;align-items:center;gap:12px;color:var(--on);
     font-family:'Outfit';font-weight:700;font-size:1.3rem;letter-spacing:-.01em;cursor:pointer}
-  .brand .mark{width:38px;height:38px;border-radius:12px;object-fit:cover;
-    box-shadow:0 6px 18px -6px rgba(178,136,255,.7)}
+  .brand .mark{
+    width:46px;
+    height:46px;
+    border-radius:14px;
+    object-fit:cover;
+
+    box-shadow:
+        0 0 15px rgba(138,45,255,.4),
+        0 0 35px rgba(138,45,255,.2);
+}
   .brand .mark-fallback{display:none;width:38px;height:38px;border-radius:12px;background:var(--grad);
     align-items:center;justify-content:center;font-weight:800;color:#1a0f25;font-size:1.1rem}
   .nav__cta{font-family:'Outfit';font-weight:600;font-size:.95rem;color:var(--on);
@@ -123,6 +131,26 @@
     border:1px solid var(--outline-strong);transition:.25s var(--ease)}
   .nav__cta:hover{background:rgba(201,166,255,.12);border-color:var(--primary)}
 
+
+  .cine-brand{
+    font-family:'Outfit';
+    font-weight:800;
+    letter-spacing:-0.04em;
+    color:#fff;
+}
+
+.plus{
+    color:#A855F7;
+    position:relative;
+    top:-8px;
+    margin-left:2px;
+    font-size:.72em;
+
+    text-shadow:
+        0 0 8px #8A2DFF,
+        0 0 20px #8A2DFF,
+        0 0 40px #8A2DFF;
+}
   .hero{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center;
     padding:clamp(40px,8vw,96px) 0 clamp(50px,7vw,80px)}
   .eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:'Outfit';font-weight:500;
@@ -136,12 +164,43 @@
   h1 .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
   .lede{font-size:clamp(1.05rem,2.2vw,1.22rem);color:var(--on-muted);max-width:38ch;margin:20px 0 32px}
 
+
+.cine-hero{
+    display:block;
+    margin-top:10px;
+
+    color:white;
+    font-weight:800;
+    letter-spacing:-0.05em;
+}
+
+.cine-hero span{
+    color:#A855F7;
+
+    position:relative;
+    top:-14px;
+
+    font-size:.65em;
+
+    text-shadow:
+        0 0 10px #8A2DFF,
+        0 0 25px #8A2DFF,
+        0 0 45px #8A2DFF;
+}
   .dl-card{background:linear-gradient(180deg,var(--surface-hi),var(--surface));
     border:1px solid var(--outline);border-radius:var(--r-md);padding:24px;max-width:460px;
     box-shadow:var(--shadow)}
   .dl-btn{position:relative;overflow:hidden;width:100%;border:none;cursor:pointer;
     font-family:'Outfit';font-weight:700;font-size:1.1rem;color:#23103a;
-    background:var(--grad);border-radius:var(--r-pill);padding:18px 24px;
+    background:linear-gradient(
+    135deg,
+    #6D28FF,
+    #8A2DFF,
+    #A855F7
+);
+    box-shadow:
+    0 0 25px rgba(138,45,255,.4),
+    0 0 50px rgba(138,45,255,.15);
     display:flex;align-items:center;justify-content:center;gap:12px;
     transition:transform .2s var(--ease),box-shadow .3s var(--ease),filter .3s;
     box-shadow:0 14px 34px -12px rgba(255,156,192,.6)}
@@ -260,8 +319,11 @@
 
   .features{display:grid;grid-template-columns:repeat(auto-fit,minmax(238px,1fr));gap:20px}
   .card{background:var(--surface);border:1px solid var(--outline);border-radius:var(--r-md);
+  backdrop-filter:blur(20px);
     padding:30px 26px;transition:transform .35s var(--ease),border-color .35s,background .35s}
   .card:hover{transform:translateY(-6px);border-color:var(--outline-strong);background:var(--surface-hi)}
+  box-shadow:
+    0 15px 40px rgba(138,45,255,.12);
   .card .ic{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;margin-bottom:20px;
     background:rgba(201,166,255,.12);border:1px solid var(--outline)}
   .card .ic svg{width:26px;height:26px;stroke:var(--primary)}
@@ -351,7 +413,13 @@
   <section class="hero">
     <div class="hero__copy">
       <span class="eyebrow reveal"><span class="dot"></span>App de streaming · Android</span>
-      <h1 class="reveal">Películas, series y anime en <span class="grad">CINE+</span></h1>
+      <h1 class="reveal">
+Todo el entretenimiento en
+
+<span class="cine-hero">
+    CINE<span>+</span>
+</span>
+</h1>
       <p class="lede reveal">Todo tu entretenimiento reunido en una sola app, con un diseño Material oscuro y fluido. Descarga el APK y empieza a ver en minutos.</p>
 
       <div class="dl-card reveal" id="descargar">
