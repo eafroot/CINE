@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0D0A12">
+  <meta name="theme-color" content="#05030B">
   <meta name="description" content="CINE+: películas, series y anime en una sola app para Android. Descarga el APK gratis.">
-  <title>CINE+ · Películas, series</title>
+  <title>CINE+ · Películas, series y anime</title>
 
-  <link rel="icon" type="image/png" href="/Logos/logo.png">
-  <link rel="apple-touch-icon" href="/Logos/logo.png">
+  <link rel="icon" type="image/png" href="Logos/logo.png">
+  <link rel="apple-touch-icon" href="Logos/logo.png">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -49,6 +49,7 @@
 
     html {
       scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
     }
 
     a {
@@ -67,6 +68,7 @@
       color: var(--on);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
       overflow-x: hidden;
       min-height: 100vh;
     }
@@ -137,6 +139,7 @@
       top: 0;
       z-index: 50;
       backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       background: rgba(13, 10, 18, .55);
       border-bottom: 1px solid transparent;
       transition: border-color .3s;
@@ -212,7 +215,7 @@
     .plus {
       color: #A855F7;
       position: relative;
-      top: -8px;
+      top: -.42em;
       margin-left: 2px;
       font-size: .72em;
       text-shadow: 0 0 8px #8A2DFF, 0 0 20px #8A2DFF, 0 0 40px #8A2DFF;
@@ -253,17 +256,19 @@
     h1 {
       font-family: 'Outfit';
       font-weight: 800;
-      font-size: 58px;
-      line-height: 1.02;
+      font-size: clamp(2.45rem, 6.6vw, 3.7rem);
+      line-height: 1.04;
       letter-spacing: -.03em;
       margin: 22px 0 0;
+      text-wrap: balance;
     }
 
     .lede {
       font-size: clamp(1.05rem, 2.2vw, 1.22rem);
       color: var(--on-muted);
-      max-width: 38ch;
+      max-width: 42ch;
       margin: 20px 0 32px;
+      text-wrap: pretty;
     }
 
     .cine-hero {
@@ -277,8 +282,8 @@
     .cine-hero span {
       color: #A855F7;
       position: relative;
-      top: -14px;
-      font-size: .65em;
+      top: -.5em;
+      font-size: .6em;
       text-shadow: 0 0 10px #8A2DFF, 0 0 25px #8A2DFF, 0 0 45px #8A2DFF;
     }
 
@@ -333,7 +338,7 @@
       flex: 0 0 auto;
       z-index: 2;
     }
-    
+
     .dl-btn span {
       z-index: 2;
     }
@@ -541,6 +546,12 @@
       outline: none;
     }
 
+    .koko-app:focus-visible {
+      outline: 2px solid var(--primary-strong);
+      outline-offset: 4px;
+      border-radius: 16px;
+    }
+
     .koko-ic {
       position: relative;
       width: 100%;
@@ -572,7 +583,7 @@
       font-family: 'Inter';
     }
 
-    .koko-app:hover .koko-ic img, .koko-app:focus-visible .koko-ic img {
+    .koko-app:hover .koko-ic img, .koko-app:focus-visible .koko-ic img, .koko-app:active .koko-ic img {
       transform: scale(1.08);
     }
 
@@ -698,12 +709,14 @@
       letter-spacing: -.02em;
       line-height: 1.05;
       margin: 14px 0 0;
+      text-wrap: balance;
     }
 
     .sec h2 + p {
       color: var(--on-muted);
       margin-top: 16px;
       font-size: 1.08rem;
+      text-wrap: pretty;
     }
 
     .showcase {
@@ -733,6 +746,14 @@
     .show-cap h3 { font-family: 'Outfit'; font-weight: 600; font-size: 1.2rem; margin-bottom: 6px; }
     .show-cap p { color: var(--on-muted); font-size: .95rem; max-width: 30ch; margin: 0 auto; }
 
+    #showcase { scroll-margin-top: 84px; }
+    .show-cta {
+      display: flex;
+      justify-content: center;
+      margin-top: clamp(36px, 6vw, 56px);
+    }
+    .show-cta .dl-btn { max-width: 340px; }
+
     .features {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(238px, 1fr));
@@ -744,6 +765,7 @@
       border: 1px solid var(--outline);
       border-radius: var(--r-md);
       backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
       padding: 30px 26px;
       transition: transform .35s var(--ease), border-color .35s, background .35s;
       box-shadow: 0 15px 40px rgba(138, 45, 255, .12);
@@ -810,22 +832,107 @@
     .foot-links a { color: var(--on-muted); transition: color .2s var(--ease); }
     .foot-links a:hover { color: var(--primary); }
 
-    /* Forzado de visibilidad inicial para evitar bugs de carga */
-    .reveal { 
-      opacity: 1 !important; 
-      transform: none !important; 
+    /* ---------- Reveal al hacer scroll (robusto, con failsafe) ---------- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity .7s var(--ease), transform .7s var(--ease);
     }
-    
-    @media (min-width: 881px) {
-      .reveal {
-        opacity: 0 !important;
-        transform: translateY(28px) !important;
-        transition: opacity .7s var(--ease), transform .7s var(--ease);
+    .reveal.in {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ---------- Toast ---------- */
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 26px;
+      transform: translate(-50%, 160%);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      max-width: min(92vw, 440px);
+      padding: 13px 20px;
+      border-radius: var(--r-pill);
+      background: linear-gradient(135deg, var(--surface-hi2), var(--surface-hi));
+      border: 1px solid var(--outline-strong);
+      color: var(--on);
+      font-family: 'Outfit';
+      font-weight: 600;
+      font-size: .92rem;
+      box-shadow: var(--shadow);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 200;
+      transition: transform .45s var(--ease), opacity .45s var(--ease);
+    }
+    .toast.show { transform: translate(-50%, 0); opacity: 1; }
+    .toast svg { width: 20px; height: 20px; color: var(--ok); flex: 0 0 auto; }
+
+    /* ---------- "Tócame": ocultar la pista tras el primer toque ---------- */
+    .koko-app.tapped .tap-hint {
+      opacity: 0;
+      transform: translateX(-50%) translateY(6px);
+      transition: opacity .3s var(--ease), transform .3s var(--ease);
+      pointer-events: none;
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width: 980px) {
+      .hero {
+        grid-template-columns: 1fr;
+        gap: clamp(30px, 6vw, 48px);
+        text-align: center;
+        padding-top: clamp(28px, 8vw, 60px);
       }
-      .reveal.in {
-        opacity: 1 !important;
-        transform: none !important;
+      .hero__copy {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
       }
+      .lede { max-width: 48ch; }
+      .dl-card { width: 100%; }
+      .chips { justify-content: center; }
+      .sec-head:not(.center) { margin-left: auto; margin-right: auto; }
+    }
+
+    @media (max-width: 860px) {
+      .showcase {
+        grid-template-columns: 1fr;
+        gap: 46px;
+        max-width: 420px;
+        margin: 0 auto;
+      }
+      .show-item:nth-child(1) .device,
+      .show-item:nth-child(3) .device { transform: none; }
+      .steps {
+        grid-template-columns: 1fr;
+        gap: 26px;
+        max-width: 480px;
+        margin: 0 auto;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .nav__in { padding: 11px 0; }
+      .brand { font-size: 1.12rem; gap: 9px; }
+      .brand .mark { width: 40px; height: 40px; }
+      .nav__cta { padding: 8px 15px; font-size: .85rem; }
+      .lede { font-size: 1.02rem; }
+      .dl-card { padding: 18px 16px; }
+      .dl-btn { font-size: 1rem; padding: 15px; }
+      .cats { gap: 8px; }
+      .cat { padding: 9px 16px; font-size: .88rem; }
+      .sec-head { margin-bottom: 34px; }
+      .card { padding: 26px 22px; }
+      .foot { justify-content: center; text-align: center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1 !important; transform: none !important; transition: none; }
+      .blob, .device, .koko-ic .ring, .tap-hint, .dl-card.pulse { animation: none !important; }
     }
   </style>
 </head>
@@ -841,7 +948,7 @@
   <nav class="nav" id="nav">
     <div class="wrap nav__in">
       <a href="#top" class="brand">
-        <img src="/Logos/logo.png" alt="" class="mark" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <img src="Logos/logo.png" alt="" class="mark" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
         <span class="mark-fallback">C</span>
         <span class="cine-brand">CINE<span class="plus">+</span></span>
       </a>
@@ -871,6 +978,7 @@
           <div class="chips">
             <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 16V8a7 7 0 0114 0v8" stroke-linecap="round"/><circle cx="9" cy="11" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="11" r="1" fill="currentColor" stroke="none"/></svg>Android</span>
             <span class="chip" id="sizeChip" style="display:none"></span>
+            <span class="chip" id="verChip" style="display:none"></span>
             <span class="chip">.apk</span>
             <span class="chip">Gratis</span>
           </div>
@@ -898,11 +1006,11 @@
                 <div class="app ph"><span class="ic-sq"></span></div>
                 <div class="app ph"><span class="ic-sq"></span></div>
 
-                <div class="app koko-app" id="kokoApp" role="button" tabindex="0" aria-label="Abrir CINE+">
+                <div class="app koko-app" id="kokoApp" role="button" tabindex="0" aria-label="Ver cómo es la app CINE+">
                   <span class="tap-hint">Tócame<i></i></span>
                   <span class="koko-ic">
                     <span class="ring"></span>
-                    <img src="/Logos/logo.png" alt="CINE+" onerror="this.style.display='none';this.parentElement.classList.add('noimg')">
+                    <img src="Logos/logo.png" alt="CINE+" onerror="this.style.display='none';this.parentElement.classList.add('noimg')">
                   </span>
                   <span class="lbl">CINE+</span>
                 </div>
@@ -950,8 +1058,8 @@
           <div class="device">
             <div class="screen">
               <span class="notch"></span>
-              <img src="/Logos/cine1.webp" alt="Estrenos destacados en CINE+" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-              <div class="shot-fallback"><img src="/Logos/logo.png" alt="" onerror="this.style.display='none'"><span>CINE+</span></div>
+              <img src="Logos/cine1.webp" alt="Estrenos destacados en CINE+" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+              <div class="shot-fallback"><img src="Logos/logo.png" alt="" onerror="this.style.display='none'"><span>CINE+</span></div>
             </div>
           </div>
           <div class="show-cap"><h3>Estrenos en portada</h3><p>Lo más nuevo te recibe nada más abrir la app.</p></div>
@@ -960,8 +1068,8 @@
           <div class="device">
             <div class="screen">
               <span class="notch"></span>
-              <img src="/Logos/cine2.webp" alt="Contenido por categorías" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-              <div class="shot-fallback"><img src="/Logos/logo.png" alt="" onerror="this.style.display='none'"><span>CINE+</span></div>
+              <img src="Logos/cine2.webp" alt="Contenido por categorías" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+              <div class="shot-fallback"><img src="Logos/logo.png" alt="" onerror="this.style.display='none'"><span>CINE+</span></div>
             </div>
           </div>
           <div class="show-cap"><h3>Todo por categorías</h3><p>Series, anime y más, organizados para encontrarlos rápido.</p></div>
@@ -970,12 +1078,20 @@
           <div class="device">
             <div class="screen">
               <span class="notch"></span>
-              <img src="/Logos/cine3.webp" alt="Explorar catálogo en CINE+" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-              <div class="shot-fallback"><img src="/Logos/logo.png" alt="" onerror="this.style.display='none'"><span>CINE+</span></div>
+              <img src="Logos/cine3.webp" alt="Explorar catálogo en CINE+" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+              <div class="shot-fallback"><img src="Logos/logo.png" alt="" onerror="this.style.display='none'"><span>CINE+</span></div>
             </div>
           </div>
           <div class="show-cap"><h3>Explora sin fin</h3><p>Cientos de títulos para descubrir, ordenados para ti.</p></div>
         </div>
+      </div>
+
+      <div class="show-cta reveal">
+        <button class="dl-btn" id="dlBtn2">
+          <span class="prog" id="prog2"></span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+          <span id="btnLabel2">Descargar CINE+</span>
+        </button>
       </div>
     </section>
 
@@ -1020,40 +1136,56 @@
         <div class="step reveal"><div class="num">03</div><h3>Abre y disfruta</h3><p>Abre el archivo descargado, confirma y empieza a ver tu contenido favorito.</p></div>
       </div>
     </section>
+
   </main>
 
   <footer>
     <div class="wrap foot">
       <a href="#top" class="brand">
-        <img src="/Logos/logo.png" alt="" class="mark" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <img src="Logos/logo.png" alt="" class="mark" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
         <span class="mark-fallback">C</span>
         CINE+
       </a>
       <nav class="foot-links">
         <a href="#descargar">Descargar</a>
-        <a href="/privacy.html">Política de Privacidad</a>
+        <a href="privacy.html">Política de Privacidad</a>
       </nav>
       <span>© 2026 CINE+</span>
     </div>
   </footer>
 
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+    <span id="toastText">Descarga iniciada…</span>
+  </div>
+
   <script>
-    const APK_URL = 'CINE+.apk';
+    /* ---------------- CINE+ · lógica del landing ---------------- */
+    const FALLBACK_URL = 'https://github.com/eafroot/CINE/raw/refs/heads/main/CINE+.apk';
+
     const statusEl  = document.getElementById('status');
     const statusTxt = document.getElementById('statusText');
     const ind       = statusEl.querySelector('.ind');
     const sizeChip  = document.getElementById('sizeChip');
-    const btn       = document.getElementById('dlBtn');
-    const btnLabel  = document.getElementById('btnLabel');
-    const progBar   = document.getElementById('prog');
+    const verChip   = document.getElementById('verChip');
     const toast     = document.getElementById('toast');
+    const toastText = document.getElementById('toastText');
+    const koko      = document.getElementById('kokoApp');
 
-    let apkSize  = null;
+    // Botones de descarga (hero + CTA final)
+    const downloadButtons = [
+      { btn: document.getElementById('dlBtn'),  label: document.getElementById('btnLabel'),  prog: document.getElementById('prog') },
+      { btn: document.getElementById('dlBtn2'), label: document.getElementById('btnLabel2'), prog: document.getElementById('prog2') }
+    ].filter(b => b.btn);
+
+    let apkUrl  = FALLBACK_URL;
+    let apkSize = null;
+    let busy    = false;
 
     const fmtSize = b => {
-      if(!b) return null;
-      const mb = b/1048576;
-      return mb >= 1 ? mb.toFixed(1)+' MB' : Math.round(b/1024)+' KB';
+      if (!b) return null;
+      const mb = b / 1048576;
+      return mb >= 1 ? mb.toFixed(1) + ' MB' : Math.round(b / 1024) + ' KB';
     };
 
     const icons = {
@@ -1062,92 +1194,155 @@
       bad:   '<svg class="bad" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M12 8v5M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>'
     };
 
-    function setStatus(state){
-      statusEl.classList.remove('is-ok','is-bad');
-      if(state==='checking'){
+    function setLabels(text, disabled) {
+      downloadButtons.forEach(({ btn, label }) => {
+        if (label) label.textContent = text;
+        btn.disabled = disabled;
+      });
+    }
+
+    function setStatus(state) {
+      statusEl.classList.remove('is-ok', 'is-bad');
+      if (state === 'checking') {
         ind.innerHTML = icons.spin;
         statusTxt.textContent = 'Verificando disponibilidad…';
-        btn.disabled = true; btnLabel.textContent = 'Comprobando…';
-      } else if(state==='ready'){
+        setLabels('Comprobando…', true);
+      } else if (state === 'ready') {
         ind.innerHTML = icons.check;
         statusEl.classList.add('is-ok');
         const s = fmtSize(apkSize);
-        statusTxt.textContent = s ? 'Archivo verificado · listo' : 'Listo para instalar';
-        if(s){ sizeChip.textContent = s; sizeChip.style.display='inline-flex'; }
-        btn.disabled = false; btnLabel.textContent = 'Descargar CINE+';
-      } else if(state==='unverified'){
+        statusTxt.textContent = s ? 'Archivo verificado · listo para instalar' : 'Listo para instalar';
+        if (s) { sizeChip.textContent = s; sizeChip.style.display = 'inline-flex'; }
+        setLabels('Descargar CINE+', false);
+      } else { // unverified
         ind.innerHTML = icons.check;
         statusEl.classList.add('is-ok');
         statusTxt.textContent = 'Listo para descargar';
-        btn.disabled = false; btnLabel.textContent = 'Descargar CINE+';
+        setLabels('Descargar CINE+', false);
       }
     }
 
-    // Comprobación de disponibilidad asíncrona sin bloquear la UI
-    async function verifyApk(){
+    // Lee cine.json para obtener la versión y la URL real del APK
+    async function loadManifest() {
       try {
-        const res = await fetch(APK_URL, {method:'HEAD', cache:'no-store'});
-        if(res.ok){
+        const res = await fetch('cine.json', { cache: 'no-store' });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.url) apkUrl = data.url;
+          if (data.version && verChip) {
+            verChip.textContent = 'v' + data.version;
+            verChip.style.display = 'inline-flex';
+          }
+        }
+      } catch (e) { /* se usan los valores por defecto */ }
+    }
+
+    // Comprueba la disponibilidad sin bloquear la interfaz
+    async function verifyApk() {
+      try {
+        const res = await fetch(apkUrl, { method: 'HEAD', cache: 'no-store' });
+        if (res.ok) {
           apkSize = parseInt(res.headers.get('content-length')) || null;
           setStatus('ready');
         } else {
           setStatus('unverified');
         }
-      } catch(e) {
+      } catch (e) {
         setStatus('unverified');
       }
     }
 
-    // Animación de simulación de descarga y Toast funcional
-    btn.addEventListener('click', () => {
-      btn.disabled = true;
-      btnLabel.textContent = 'Descargando...';
+    function triggerDownload() {
+      const a = document.createElement('a');
+      a.href = apkUrl;
+      a.setAttribute('download', 'CINE+.apk');
+      a.rel = 'noopener';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    }
+
+    function showToast(msg) {
+      if (!toast) return;
+      if (toastText) toastText.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(() => toast.classList.remove('show'), 3800);
+    }
+
+    // Descarga: barra de progreso simulada + descarga real del archivo
+    function startDownload(which) {
+      if (busy) return;
+      busy = true;
+      setLabels('Descargando…', true);
       let progress = 0;
-      
+
       const interval = setInterval(() => {
         progress += 5;
-        progBar.style.width = progress + '%';
-        
+        const w = Math.min(progress, 100) + '%';
+        downloadButtons.forEach(({ prog }) => { if (prog) prog.style.width = w; });
+
         if (progress >= 100) {
           clearInterval(interval);
-          btnLabel.textContent = 'Descargado';
-          progBar.style.width = '0%';
-          btn.disabled = false;
-          btnLabel.textContent = 'Descargar CINE+';
-          
-          // Mostrar Toast de éxito
-          toast.classList.add('show');
-          setTimeout(() => { toast.classList.remove('show'); }, 3500);
-          
-          // Ejecutar descarga real del archivo
-          window.location.href = APK_URL;
-        }
-      }, 100);
-    });
+          triggerDownload();
+          showToast('Descarga iniciada · revisa tus notificaciones');
 
-    // Cambiar bordes del nav al hacer scroll
-    window.addEventListener('scroll', () => {
-      const nav = document.getElementById('nav');
-      if(window.scrollY > 20) {
-        nav.classList.add('scrolled');
-      } else {
-        nav.classList.remove('scrolled');
-      }
-    });
-
-    // Control de animaciones Reveal (Scroll)
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if(entry.isIntersecting) {
-          entry.target.classList.add('in');
+          setTimeout(() => {
+            downloadButtons.forEach(({ prog }) => { if (prog) prog.style.width = '0%'; });
+            setLabels('Descargar CINE+', false);
+            busy = false;
+          }, 600);
         }
+      }, 90);
+    }
+
+    downloadButtons.forEach(({ btn }) => btn.addEventListener('click', startDownload));
+
+    // "Tócame": el icono de la app lleva a las capturas para ver cómo es
+    function openApp() {
+      koko.classList.add('tapped');
+      const target = document.getElementById('showcase');
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    if (koko) {
+      koko.addEventListener('click', openApp);
+      koko.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openApp(); }
       });
-    }, { threshold: 0.1 });
+    }
 
-    // Inicializar todo una vez cargue el DOM
-    window.addEventListener('DOMContentLoaded', () => {
+    // Borde del nav al hacer scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    // Animaciones reveal con failsafe (nada se queda oculto)
+    function initReveal() {
+      const reveals = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries, obs) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('in');
+              obs.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+        reveals.forEach(el => io.observe(el));
+        // Failsafe: si algo no se reveló en 2.5s, mostrarlo igualmente
+        setTimeout(() => reveals.forEach(el => el.classList.add('in')), 2500);
+      } else {
+        reveals.forEach(el => el.classList.add('in'));
+      }
+    }
+
+    // Init
+    window.addEventListener('DOMContentLoaded', async () => {
+      setStatus('checking');
+      initReveal();
+      await loadManifest();
       verifyApk();
-      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     });
   </script>
 </body>
