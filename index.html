@@ -479,7 +479,7 @@
     <a href="#top" class="brand">
       <img src="/Logos/logo.png" alt="" class="mark" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
       <span class="mark-fallback">K</span>
-      KoKo
+      CINE+
     </a>
     <nav class="foot-links">
       <a href="#descargar">Descargar</a>
@@ -530,12 +530,12 @@
       const s = fmtSize(apkSize);
       statusTxt.textContent = s ? 'Archivo verificado · listo para instalar' : 'Listo para instalar';
       if(s){ sizeChip.textContent = s; sizeChip.style.display='inline-flex'; }
-      btn.disabled = false; btnLabel.textContent = 'Descargar KoKo';
+      btn.disabled = false; btnLabel.textContent = 'Descargar CINE+';
     } else if(state==='unverified'){
       ind.innerHTML = icons.check;
       statusEl.classList.add('is-ok');
       statusTxt.textContent = 'Listo para descargar';
-      btn.disabled = false; btnLabel.textContent = 'Descargar KoKo';
+      btn.disabled = false; btnLabel.textContent = 'Descargar CINE+';
     } else if(state==='error'){
       ind.innerHTML = icons.bad;
       statusEl.classList.add('is-bad');
@@ -598,7 +598,7 @@
     }
     const a = document.createElement('a');
     a.href = APK_URL;
-    a.setAttribute('download','KoKo.apk');
+    a.setAttribute('download','CINE+.apk');
     document.body.appendChild(a);
     a.click();
     a.remove();
