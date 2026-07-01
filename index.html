@@ -2,10 +2,9 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#05030B">
   <meta name="description" content="CINE+: películas, series y anime en una sola app para Android. Descarga el APK gratis.">
-  <meta name="monetag" content="5a7d9eb10c7a672d982e91d2d2523d96">
   <title>CINE+ · Películas, series y anime</title>
 
   <link rel="icon" type="image/png" href="Logos/logo.png">
@@ -51,6 +50,8 @@
     html {
       scroll-behavior: smooth;
       -webkit-text-size-adjust: 100%;
+      -webkit-tap-highlight-color: transparent;
+      overscroll-behavior-y: none;
     }
 
     a {
@@ -72,6 +73,8 @@
       text-rendering: optimizeLegibility;
       overflow-x: hidden;
       min-height: 100vh;
+      min-height: 100dvh;
+      -webkit-tap-highlight-color: transparent;
     }
 
     .field {
@@ -80,6 +83,10 @@
       z-index: -1;
       overflow: hidden;
       background: radial-gradient(120% 90% at 50% -10%, var(--bg-2), var(--bg) 60%);
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
     }
 
     .blob {
@@ -88,6 +95,9 @@
       filter: blur(80px);
       opacity: .45;
       will-change: transform;
+      transform: translateZ(0);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
     }
 
     .blob.b1 {
@@ -119,9 +129,9 @@
       animation: drift3 30s var(--ease) infinite alternate;
     }
 
-    @keyframes drift1 { to { transform: translate(8vw, 6vh) scale(1.15); } }
-    @keyframes drift2 { to { transform: translate(-7vw, -5vh) scale(1.1); } }
-    @keyframes drift3 { to { transform: translate(-10vw, 8vh) scale(.85); } }
+    @keyframes drift1 { to { transform: translate3d(8vw, 6vw, 0) scale(1.15); } }
+    @keyframes drift2 { to { transform: translate3d(-7vw, -5vw, 0) scale(1.1); } }
+    @keyframes drift3 { to { transform: translate3d(-10vw, 8vw, 0) scale(.85); } }
 
     .grain {
       position: absolute;
@@ -133,12 +143,15 @@
     .wrap {
       width: min(1120px, 92vw);
       margin: 0 auto;
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
     }
 
     .nav {
       position: sticky;
       top: 0;
       z-index: 50;
+      padding-top: env(safe-area-inset-top);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       background: rgba(13, 10, 18, .55);
@@ -148,6 +161,10 @@
 
     .nav.scrolled {
       border-bottom-color: var(--outline);
+    }
+
+    @supports not ((backdrop-filter: blur(6px)) or (-webkit-backdrop-filter: blur(6px))) {
+      .nav { background: rgba(9, 6, 14, .94); }
     }
 
     .nav__in {
@@ -826,7 +843,7 @@
     .cta-final p { color: var(--on-muted); margin: 14px auto 30px; max-width: 46ch; }
     .cta-final .dl-btn { max-width: 340px; margin: 0 auto; }
 
-    footer { border-top: 1px solid var(--outline); padding: 40px 0; margin-top: 40px; }
+    footer { border-top: 1px solid var(--outline); padding: 40px 0; padding-bottom: calc(40px + env(safe-area-inset-bottom)); margin-top: 40px; }
     .foot { display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap; color: var(--on-dim); font-size: .9rem; }
     .foot .brand { font-size: 1.1rem; }
     .foot-links { display: flex; gap: 22px; flex-wrap: wrap; }
@@ -916,6 +933,8 @@
     }
 
     @media (max-width: 560px) {
+      .blob { filter: blur(56px); }
+      .blob.b3 { display: none; }
       .nav__in { padding: 11px 0; }
       .brand { font-size: 1.12rem; gap: 9px; }
       .brand .mark { width: 40px; height: 40px; }
