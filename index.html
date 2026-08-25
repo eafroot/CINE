@@ -850,7 +850,6 @@
     .foot-links a { color: var(--on-muted); transition: color .2s var(--ease); }
     .foot-links a:hover { color: var(--primary); }
 
-    /* ---------- Reveal al hacer scroll (robusto, con failsafe) ---------- */
     .reveal {
       opacity: 0;
       transform: translateY(26px);
@@ -861,7 +860,6 @@
       transform: none;
     }
 
-    /* ---------- Toast ---------- */
     .toast {
       position: fixed;
       left: 50%;
@@ -888,7 +886,6 @@
     .toast.show { transform: translate(-50%, 0); opacity: 1; }
     .toast svg { width: 20px; height: 20px; color: var(--ok); flex: 0 0 auto; }
 
-    /* ---------- "Tócame": ocultar la pista tras el primer toque ---------- */
     .koko-app.tapped .tap-hint {
       opacity: 0;
       transform: translateX(-50%) translateY(6px);
@@ -896,7 +893,202 @@
       pointer-events: none;
     }
 
-    /* ---------- Responsive ---------- */
+    .content-hub {
+      position: relative;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .content-card {
+      position: relative;
+      min-height: 220px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 26px;
+      padding: 28px;
+      border: 1px solid rgba(168, 85, 247, .14);
+      border-radius: 28px;
+      background:
+        radial-gradient(100% 130% at 100% 0%, rgba(138,45,255,.16), transparent 55%),
+        linear-gradient(145deg, rgba(24,14,40,.96), rgba(11,7,20,.96));
+      box-shadow: 0 22px 55px rgba(0,0,0,.22);
+      transition: transform .45s var(--ease), border-color .45s, box-shadow .45s, background .45s;
+    }
+
+    .content-card:hover {
+      transform: translateY(-7px);
+      border-color: rgba(168,85,247,.38);
+      box-shadow: 0 28px 70px rgba(0,0,0,.34), 0 0 50px rgba(138,45,255,.12);
+    }
+
+    .content-card--wide {
+      grid-column: span 2;
+      min-height: 250px;
+      background:
+        radial-gradient(90% 120% at 100% 0%, rgba(168,85,247,.24), transparent 58%),
+        radial-gradient(70% 100% at 0% 100%, rgba(109,40,255,.16), transparent 60%),
+        linear-gradient(145deg, rgba(28,16,48,.98), rgba(10,6,18,.98));
+    }
+
+    .content-card--live {
+      background:
+        radial-gradient(90% 120% at 100% 0%, rgba(239,68,68,.11), transparent 58%),
+        linear-gradient(145deg, rgba(29,14,27,.98), rgba(10,6,18,.98));
+    }
+
+    .content-card__glow {
+      position: absolute;
+      width: 230px;
+      height: 230px;
+      right: -100px;
+      top: -110px;
+      border-radius: 50%;
+      background: rgba(168,85,247,.23);
+      filter: blur(35px);
+      pointer-events: none;
+    }
+
+    .content-card__icon {
+      width: 58px;
+      height: 58px;
+      display: grid;
+      place-items: center;
+      border-radius: 18px;
+      font-family: 'Outfit';
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -.04em;
+      color: #fff;
+      background: linear-gradient(135deg, rgba(168,85,247,.28), rgba(109,40,255,.18));
+      border: 1px solid rgba(168,85,247,.22);
+      box-shadow: inset 0 1px rgba(255,255,255,.08), 0 12px 30px rgba(0,0,0,.18);
+      flex: 0 0 auto;
+    }
+
+    .content-card__tag {
+      display: block;
+      margin-bottom: 7px;
+      color: var(--primary-strong);
+      font-family: 'Outfit';
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+    }
+
+    .content-card h3 {
+      font-family: 'Outfit';
+      font-size: clamp(1.3rem, 2.4vw, 1.65rem);
+      font-weight: 700;
+      letter-spacing: -.025em;
+    }
+
+    .content-card p {
+      max-width: 58ch;
+      margin-top: 8px;
+      color: var(--on-muted);
+      font-size: .96rem;
+    }
+
+    .content-card__arrow {
+      position: absolute;
+      right: 25px;
+      bottom: 23px;
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--on-muted);
+      background: rgba(255,255,255,.05);
+      border: 1px solid rgba(255,255,255,.07);
+      transition: transform .3s var(--ease), color .3s, background .3s;
+    }
+
+    .content-card:hover .content-card__arrow {
+      transform: translate(3px,-3px);
+      color: #fff;
+      background: rgba(168,85,247,.18);
+    }
+
+    .live-badge {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      color: #ffd8db;
+      background: rgba(255,70,80,.08);
+      border: 1px solid rgba(255,100,110,.15);
+      font-family: 'Outfit';
+      font-size: .68rem;
+      font-weight: 800;
+      letter-spacing: .08em;
+    }
+
+    .live-badge span {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #ff6b73;
+      box-shadow: 0 0 12px rgba(255,107,115,.85);
+      animation: livePulse 1.5s ease-in-out infinite;
+    }
+
+    @keyframes livePulse {
+      50% { transform: scale(.65); opacity: .55; }
+    }
+
+    .nav__cta {
+      box-shadow: 0 0 0 rgba(168,85,247,0);
+    }
+
+    .nav__cta:hover {
+      box-shadow: 0 8px 25px rgba(138,45,255,.18);
+    }
+
+    .dl-btn {
+      box-shadow: 0 12px 35px rgba(109,40,255,.22);
+    }
+
+    .dl-btn:hover {
+      box-shadow: 0 16px 42px rgba(138,45,255,.38);
+    }
+
+    @media (max-width: 700px) {
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .content-card--wide {
+        grid-column: span 1;
+      }
+
+      .content-card {
+        min-height: 205px;
+        padding: 24px;
+        border-radius: 24px;
+      }
+
+      .content-card__arrow {
+        right: 20px;
+        bottom: 19px;
+      }
+
+      .live-badge {
+        top: 20px;
+        right: 20px;
+      }
+    }
+
     @media (max-width: 980px) {
       .hero {
         grid-template-columns: 1fr;
@@ -955,7 +1147,6 @@
       .blob, .device, .koko-ic .ring, .tap-hint, .dl-card.pulse { animation: none !important; }
     }
 
-    /* ===== CINE+ 2.0 · responsive premium layer ===== */
     :root{--max:1240px;--line:rgba(255,255,255,.09);--glow:0 0 80px rgba(138,45,255,.22)}
     body{background:radial-gradient(900px 520px at 8% -8%,rgba(109,40,255,.18),transparent 62%),radial-gradient(800px 500px at 92% 18%,rgba(168,85,247,.13),transparent 64%),var(--bg)}
     .wrap{width:min(var(--max),calc(100% - 40px))}
@@ -1098,14 +1289,68 @@
       </div>
     </section>
 
-    <div class="cats">
-      <a href="#descargar" class="cat reveal">Películas</a>
-      <a href="#descargar" class="cat reveal">Series</a>
-      <a href="#descargar" class="cat reveal">Anime</a>
-      <a href="#descargar" class="cat reveal">Doramas</a>
-      <a href="#descargar" class="cat reveal">Documentales</a>
-      <a href="#descargar" class="cat reveal">Infantil</a>
+    <div class="cats" aria-label="Contenido disponible">
+      <a href="#contenido" class="cat reveal">Películas</a>
+      <a href="#contenido" class="cat reveal">Series</a>
+      <a href="#contenido" class="cat reveal">Mangas</a>
+      <a href="#contenido" class="cat reveal">TV en vivo</a>
+      <a href="#contenido" class="cat reveal">Fútbol en vivo</a>
+      <a href="#contenido" class="cat reveal">Anime</a>
+      <a href="#contenido" class="cat reveal">Doramas</a>
+      <a href="#contenido" class="cat reveal">Documentales</a>
     </div>
+
+    <section class="sec content-hub" id="contenido">
+      <div class="sec-head center reveal">
+        <span class="sec-eyebrow">Todo CINE+ en un solo lugar</span>
+        <h2>Más que una app de streaming</h2>
+        <p>Películas, series, mangas, televisión y eventos en vivo, organizados para que encuentres lo que buscas sin perder tiempo.</p>
+      </div>
+
+      <div class="content-grid">
+        <article class="content-card content-card--wide reveal">
+          <div class="content-card__glow"></div>
+          <div class="content-card__icon">▶</div>
+          <div>
+            <span class="content-card__tag">ENTRETENIMIENTO</span>
+            <h3>Películas y series</h3>
+            <p>Descubre historias, estrenos y temporadas completas desde una experiencia visual limpia y rápida.</p>
+          </div>
+          <span class="content-card__arrow">↗</span>
+        </article>
+
+        <article class="content-card reveal">
+          <div class="content-card__icon">M</div>
+          <div>
+            <span class="content-card__tag">LECTURA</span>
+            <h3>Mangas</h3>
+            <p>Una sección pensada para explorar tus mangas favoritos cómodamente.</p>
+          </div>
+          <span class="content-card__arrow">↗</span>
+        </article>
+
+        <article class="content-card reveal">
+          <div class="content-card__icon">TV</div>
+          <div>
+            <span class="content-card__tag">EN VIVO</span>
+            <h3>Canales de TV</h3>
+            <p>Accede a tus canales y disfruta de contenido en directo desde un mismo lugar.</p>
+          </div>
+          <span class="content-card__arrow">↗</span>
+        </article>
+
+        <article class="content-card content-card--live reveal">
+          <div class="live-badge"><span></span> EN VIVO</div>
+          <div class="content-card__icon">⚽</div>
+          <div>
+            <span class="content-card__tag">DEPORTE</span>
+            <h3>Fútbol en vivo</h3>
+            <p>Encuentra eventos y partidos en directo con una sección dedicada al deporte.</p>
+          </div>
+          <span class="content-card__arrow">↗</span>
+        </article>
+      </div>
+    </section>
 
     <section class="sec" id="showcase">
       <div class="sec-head center reveal">
@@ -1220,7 +1465,7 @@
   </div>
 
   <script>
-    /* ---------------- CINE+ · lógica del landing ---------------- */
+    
     const FALLBACK_URL = 'https://github.com/eafroot/CINE/raw/refs/heads/main/CINE+.apk';
 
     const statusEl  = document.getElementById('status');
@@ -1232,7 +1477,6 @@
     const toastText = document.getElementById('toastText');
     const koko      = document.getElementById('kokoApp');
 
-    // Botones de descarga (hero + CTA final)
     const downloadButtons = [
       { btn: document.getElementById('dlBtn'),  label: document.getElementById('btnLabel'),  prog: document.getElementById('prog') },
       { btn: document.getElementById('dlBtn2'), label: document.getElementById('btnLabel2'), prog: document.getElementById('prog2') }
@@ -1282,7 +1526,6 @@
       }
     }
 
-    // Lee cine.json para obtener la versión y la URL real del APK
     async function loadManifest() {
       try {
         const res = await fetch('cine.json', { cache: 'no-store' });
@@ -1294,10 +1537,9 @@
             verChip.style.display = 'inline-flex';
           }
         }
-      } catch (e) { /* se usan los valores por defecto */ }
+      } catch (e) {  }
     }
 
-    // Comprueba la disponibilidad sin bloquear la interfaz
     async function verifyApk() {
       try {
         const res = await fetch(apkUrl, { method: 'HEAD', cache: 'no-store' });
@@ -1330,7 +1572,6 @@
       showToast._t = setTimeout(() => toast.classList.remove('show'), 3800);
     }
 
-    // Descarga: barra de progreso simulada + descarga real del archivo
     function startDownload(which) {
       if (busy) return;
       busy = true;
@@ -1358,7 +1599,6 @@
 
     downloadButtons.forEach(({ btn }) => btn.addEventListener('click', startDownload));
 
-    // "Tócame": el icono de la app lleva a las capturas para ver cómo es
     function openApp() {
       koko.classList.add('tapped');
       const target = document.getElementById('showcase');
@@ -1371,13 +1611,11 @@
       });
     }
 
-    // Borde del nav al hacer scroll
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
       nav.classList.toggle('scrolled', window.scrollY > 20);
     }, { passive: true });
 
-    // Animaciones reveal con failsafe (nada se queda oculto)
     function initReveal() {
       const reveals = document.querySelectorAll('.reveal');
       if ('IntersectionObserver' in window) {
@@ -1390,14 +1628,13 @@
           });
         }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
         reveals.forEach(el => io.observe(el));
-        // Failsafe: si algo no se reveló en 2.5s, mostrarlo igualmente
+
         setTimeout(() => reveals.forEach(el => el.classList.add('in')), 2500);
       } else {
         reveals.forEach(el => el.classList.add('in'));
       }
     }
 
-    // Init
     window.addEventListener('DOMContentLoaded', async () => {
       setStatus('checking');
       initReveal();
