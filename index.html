@@ -7,7 +7,7 @@
   <meta name="description" content="CINE+: películas, series y anime en una sola app para Android. Descarga el APK gratis.">
   <title>CINE+ · Películas, series y anime</title>
 
-  <link rel="icon" type="image/webp" href="Logos/logo.webp">
+  <link rel="icon" type="image/png" href="Logos/logo.webp">
   <link rel="apple-touch-icon" href="Logos/logo.webp">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,27 +18,27 @@
     :root {
       --bg: #05030B;
       --bg-2: #0B0616;
-      --surface: rgba(16, 10, 30, 0.65);
-      --surface-hi: rgba(22, 13, 40, 0.75);
-      --surface-hi2: rgba(29, 16, 53, 0.85);
-      --outline: rgba(168, 85, 247, 0.15);
-      --outline-strong: rgba(168, 85, 247, 0.35);
-      --primary: #9D4EDD;
-      --primary-strong: #C77DFF;
-      --secondary: #7B2CBF;
-      --tertiary: #E0AAFF;
+      --surface: #100A1E;
+      --surface-hi: #160D28;
+      --surface-hi2: #1D1035;
+      --outline: rgba(168, 85, 247, .12);
+      --outline-strong: rgba(168, 85, 247, .25);
+      --primary: #8A2DFF;
+      --primary-strong: #A855F7;
+      --secondary: #6D28FF;
+      --tertiary: #B57CFF;
       --on: #FFFFFF;
-      --on-muted: #D1C8E1;
-      --on-dim: #A396BE;
+      --on-muted: #C8C0DA;
+      --on-dim: #9A90B5;
       --ok: #7EE0B8;
       --err: #FF9DA3;
-      --grad: linear-gradient(135deg, #7B2CBF 0%, #9D4EDD 50%, #C77DFF 100%);
+      --grad: linear-gradient(135deg, #6D28FF 0%, #8A2DFF 50%, #A855F7 100%);
       --r-lg: 32px;
       --r-md: 24px;
       --r-sm: 16px;
       --r-pill: 999px;
-      --ease: cubic-bezier(0.25, 1, 0.25, 1);
-      --shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.9), 0 0 45px rgba(157, 78, 221, 0.2);
+      --ease: cubic-bezier(.2, .8, .2, 1);
+      --shadow: 0 24px 60px -20px rgba(0, 0, 0, .7), 0 0 40px rgba(138, 45, 255, .15);
     }
 
     * {
@@ -54,6 +54,16 @@
       overscroll-behavior-y: none;
     }
 
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
     body {
       font-family: 'Inter', system-ui, sans-serif;
       background: var(--bg);
@@ -64,210 +74,243 @@
       overflow-x: hidden;
       min-height: 100vh;
       min-height: 100dvh;
+      -webkit-tap-highlight-color: transparent;
     }
 
-    /* Fondo dinámico refinado */
     .field {
       position: fixed;
       inset: 0;
       z-index: -1;
       overflow: hidden;
       background: radial-gradient(120% 90% at 50% -10%, var(--bg-2), var(--bg) 60%);
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
     }
 
     .blob {
       position: absolute;
       border-radius: 50%;
-      filter: blur(100px);
-      opacity: 0.5;
+      filter: blur(80px);
+      opacity: .45;
       will-change: transform;
+      transform: translateZ(0);
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
     }
 
     .blob.b1 {
-      width: 45vw; height: 45vw;
-      background: var(--secondary);
-      top: -10vw; left: -5vw;
-      animation: drift1 24s var(--ease) infinite alternate;
+      width: 48vw;
+      height: 48vw;
+      background: #6D28FF;
+      top: -12vw;
+      left: -8vw;
+      animation: drift1 22s var(--ease) infinite alternate;
     }
 
     .blob.b2 {
-      width: 40vw; height: 40vw;
-      background: var(--primary);
-      bottom: -10vw; right: -5vw;
-      opacity: 0.4;
-      animation: drift2 28s var(--ease) infinite alternate;
+      width: 42vw;
+      height: 42vw;
+      background: #8A2DFF;
+      bottom: -14vw;
+      right: -10vw;
+      opacity: .35;
+      animation: drift2 26s var(--ease) infinite alternate;
     }
 
     .blob.b3 {
-      width: 30vw; height: 30vw;
-      background: var(--tertiary);
-      top: 40%; left: 35%;
-      opacity: 0.2;
-      animation: drift3 32s var(--ease) infinite alternate;
+      width: 34vw;
+      height: 34vw;
+      background: #A855F7;
+      top: 38%;
+      left: 40%;
+      opacity: .18;
+      animation: drift3 30s var(--ease) infinite alternate;
     }
 
-    @keyframes drift1 { to { transform: translate3d(10vw, 8vw, 0) scale(1.1); } }
-    @keyframes drift2 { to { transform: translate3d(-10vw, -8vw, 0) scale(1.15); } }
-    @keyframes drift3 { to { transform: translate3d(-8vw, 10vw, 0) scale(0.9); } }
+    @keyframes drift1 { to { transform: translate3d(8vw, 6vw, 0) scale(1.15); } }
+    @keyframes drift2 { to { transform: translate3d(-7vw, -5vw, 0) scale(1.1); } }
+    @keyframes drift3 { to { transform: translate3d(-10vw, 8vw, 0) scale(.85); } }
 
     .grain {
       position: absolute;
       inset: 0;
-      opacity: 0.05;
+      opacity: .04;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      pointer-events: none;
     }
 
-    /* Contenedor adaptativo Ultra-Wide */
     .wrap {
-      width: min(1280px, 92vw);
+      width: min(1120px, 92vw);
       margin: 0 auto;
       padding-left: env(safe-area-inset-left);
       padding-right: env(safe-area-inset-right);
     }
 
-    /* Navegación Glassmorphism */
     .nav {
       position: sticky;
       top: 0;
       z-index: 50;
       padding-top: env(safe-area-inset-top);
-      backdrop-filter: blur(24px) saturate(150%);
-      -webkit-backdrop-filter: blur(24px) saturate(150%);
-      background: rgba(5, 3, 11, 0.6);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      background: rgba(13, 10, 18, .55);
       border-bottom: 1px solid transparent;
-      transition: border-color 0.4s var(--ease), background 0.4s var(--ease);
+      transition: border-color .3s;
     }
 
     .nav.scrolled {
       border-bottom-color: var(--outline);
-      background: rgba(5, 3, 11, 0.85);
+    }
+
+    @supports not ((backdrop-filter: blur(6px)) or (-webkit-backdrop-filter: blur(6px))) {
+      .nav { background: rgba(9, 6, 14, .94); }
     }
 
     .nav__in {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 16px 0;
+      padding: 14px 0;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
       color: var(--on);
       font-family: 'Outfit';
-      font-weight: 800;
-      font-size: 1.4rem;
-      letter-spacing: -0.02em;
+      font-weight: 700;
+      font-size: 1.3rem;
+      letter-spacing: -.01em;
+      cursor: pointer;
     }
 
     .brand .mark {
-      width: 48px; height: 48px;
+      width: 46px;
+      height: 46px;
       border-radius: 14px;
       object-fit: cover;
-      box-shadow: 0 8px 24px -6px rgba(157, 78, 221, 0.5);
-      transition: transform 0.3s var(--ease);
+      box-shadow: 0 0 15px rgba(138, 45, 255, .4), 0 0 35px rgba(138, 45, 255, .2);
     }
 
-    .brand:hover .mark {
-      transform: scale(1.05) rotate(-2deg);
+    .brand .mark-fallback {
+      display: none;
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: var(--grad);
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: #1a0f25;
+      font-size: 1.1rem;
     }
 
     .nav__cta {
       font-family: 'Outfit';
       font-weight: 600;
-      font-size: 0.95rem;
+      font-size: .95rem;
       color: var(--on);
-      padding: 10px 24px;
+      padding: 9px 20px;
       border-radius: var(--r-pill);
-      background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--outline-strong);
-      transition: all 0.3s var(--ease);
-      backdrop-filter: blur(10px);
+      transition: .25s var(--ease);
     }
 
     .nav__cta:hover {
-      background: rgba(199, 125, 255, 0.15);
-      border-color: var(--primary-strong);
-      transform: translateY(-2px);
+      background: rgba(201, 166, 255, .12);
+      border-color: var(--primary);
     }
 
-    .cine-brand { color: #fff; }
+    .cine-brand {
+      font-family: 'Outfit';
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: #fff;
+    }
+
     .plus {
-      color: var(--primary-strong);
+      color: #A855F7;
       position: relative;
-      top: -0.4em;
+      top: -.42em;
       margin-left: 2px;
-      font-size: 0.75em;
-      text-shadow: 0 0 12px var(--primary);
+      font-size: .72em;
+      text-shadow: 0 0 8px #8A2DFF, 0 0 20px #8A2DFF, 0 0 40px #8A2DFF;
     }
 
-    /* Hero Section */
     .hero {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 64px;
+      grid-template-columns: 1.05fr .95fr;
+      gap: 56px;
       align-items: center;
-      padding: clamp(60px, 10vw, 120px) 0 clamp(60px, 8vw, 100px);
+      padding: clamp(40px, 8vw, 96px) 0 clamp(50px, 7vw, 80px);
     }
 
     .eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
+      gap: 9px;
       font-family: 'Outfit';
-      font-weight: 600;
-      font-size: 0.85rem;
-      letter-spacing: 0.06em;
+      font-weight: 500;
+      font-size: .82rem;
+      letter-spacing: .04em;
       text-transform: uppercase;
-      color: var(--tertiary);
-      padding: 8px 18px;
+      color: var(--primary);
+      padding: 7px 16px;
       border-radius: var(--r-pill);
-      background: rgba(199, 125, 255, 0.1);
+      background: rgba(201, 166, 255, .1);
       border: 1px solid var(--outline);
-      backdrop-filter: blur(10px);
     }
 
     .eyebrow .dot {
-      width: 8px; height: 8px;
+      width: 7px;
+      height: 7px;
       border-radius: 50%;
       background: var(--ok);
-      box-shadow: 0 0 12px var(--ok);
-      animation: pulseDot 2s infinite;
-    }
-
-    @keyframes pulseDot {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.6; transform: scale(0.8); }
+      box-shadow: 0 0 10px var(--ok);
     }
 
     h1 {
       font-family: 'Outfit';
       font-weight: 800;
-      font-size: clamp(2.8rem, 6vw, 4.2rem);
-      line-height: 1.05;
-      letter-spacing: -0.03em;
-      margin: 24px 0 0;
+      font-size: clamp(2.45rem, 6.6vw, 3.7rem);
+      line-height: 1.04;
+      letter-spacing: -.03em;
+      margin: 22px 0 0;
       text-wrap: balance;
     }
 
     .lede {
-      font-size: clamp(1.1rem, 2vw, 1.25rem);
+      font-size: clamp(1.05rem, 2.2vw, 1.22rem);
       color: var(--on-muted);
-      max-width: 46ch;
-      margin: 24px 0 40px;
+      max-width: 42ch;
+      margin: 20px 0 32px;
       text-wrap: pretty;
     }
 
+    .cine-hero {
+      display: block;
+      margin-top: 10px;
+      color: white;
+      font-weight: 800;
+      letter-spacing: -0.05em;
+    }
+
+    .cine-hero span {
+      color: #A855F7;
+      position: relative;
+      top: -.5em;
+      font-size: .6em;
+      text-shadow: 0 0 10px #8A2DFF, 0 0 25px #8A2DFF, 0 0 45px #8A2DFF;
+    }
+
     .dl-card {
-      background: var(--surface);
-      border: 1px solid var(--outline-strong);
+      background: linear-gradient(180deg, var(--surface-hi), var(--surface));
+      border: 1px solid var(--outline);
       border-radius: var(--r-md);
-      padding: 28px;
-      max-width: 480px;
-      backdrop-filter: blur(24px) saturate(180%);
-      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      padding: 24px;
+      max-width: 460px;
       box-shadow: var(--shadow);
     }
 
@@ -275,190 +318,686 @@
       position: relative;
       overflow: hidden;
       width: 100%;
-      padding: 18px;
+      padding: 16px;
       border-radius: var(--r-sm);
       border: none;
       cursor: pointer;
       font-family: 'Outfit';
       font-weight: 700;
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       color: #fff;
-      background: var(--grad);
+      background: linear-gradient(135deg, #6D28FF, #8A2DFF, #A855F7);
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 12px;
-      transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
-      box-shadow: 0 8px 24px -6px rgba(157, 78, 221, 0.5);
+      transition: transform .2s var(--ease), box-shadow .3s var(--ease), filter .3s;
     }
 
     .dl-btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 16px 32px -8px rgba(199, 125, 255, 0.6);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 30px rgba(138, 45, 255, 0.4);
     }
 
     .dl-btn:active {
-      transform: translateY(1px);
+      transform: translateY(0) scale(.99);
     }
 
-    .dl-btn svg { width: 24px; height: 24px; z-index: 2; }
-    .dl-btn span { z-index: 2; }
+    .dl-btn:disabled {
+      filter: saturate(.5) brightness(.8);
+      cursor: wait;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .dl-btn svg {
+      width: 22px;
+      height: 22px;
+      flex: 0 0 auto;
+      z-index: 2;
+    }
+
+    .dl-btn span {
+      z-index: 2;
+    }
+
     .dl-btn .prog {
-      position: absolute; left: 0; top: 0; bottom: 0;
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
       width: 0%;
-      background: rgba(255, 255, 255, 0.2);
-      transition: width 0.15s ease-out;
+      background: rgba(255, 255, 255, .25);
+      transition: width 0.1s linear;
       z-index: 1;
     }
 
-    /* Showcase & Features */
-    .showcase {
+    .status {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      margin-top: 16px;
+      font-size: .92rem;
+      color: var(--on-muted);
+      min-height: 24px;
+    }
+
+    .status .ind {
+      width: 18px;
+      height: 18px;
+      flex: 0 0 auto;
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 40px;
-      align-items: start;
+      place-items: center;
+    }
+
+    .status .spin {
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--outline-strong);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin .8s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .status .check { color: var(--ok); }
+    .status .bad { color: var(--err); }
+    .status.is-ok { color: var(--on); }
+    .status.is-bad { color: var(--err); }
+
+    .chips {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+
+    .chip {
+      font-family: 'Outfit';
+      font-weight: 500;
+      font-size: .8rem;
+      color: var(--on-muted);
+      padding: 6px 13px;
+      border-radius: var(--r-pill);
+      background: var(--surface-hi2);
+      border: 1px solid var(--outline);
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .chip svg {
+      width: 14px;
+      height: 14px;
+      opacity: .8;
+    }
+
+    .device-stage {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
     }
 
     .device {
-      width: 100%;
-      max-width: 320px;
-      margin: 0 auto;
+      width: min(290px, 74vw);
       aspect-ratio: 9/19.5;
-      border-radius: 48px;
-      background: linear-gradient(160deg, #322442, #181124);
-      padding: 12px;
-      border: 1px solid rgba(199, 125, 255, 0.3);
-      box-shadow: var(--shadow), 0 0 0 10px rgba(199, 125, 255, 0.05);
+      border-radius: 46px;
+      background: linear-gradient(160deg, #2a2036, #15101d);
+      padding: 11px;
+      border: 1px solid var(--outline-strong);
+      box-shadow: var(--shadow), 0 0 0 8px rgba(201, 166, 255, .04);
       animation: float 6s var(--ease) infinite alternate;
     }
 
+    @keyframes float { to { transform: translateY(-16px); } }
+
     .screen {
-      width: 100%; height: 100%;
+      width: 100%;
+      height: 100%;
       border-radius: 36px;
       overflow: hidden;
       position: relative;
-      background: #0B0616;
+      background: #100b18;
     }
 
     .screen img {
-      width: 100%; height: 100%;
+      width: 100%;
+      height: 100%;
       object-fit: cover;
     }
 
+    .screen .notch {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 74px;
+      height: 7px;
+      border-radius: 99px;
+      background: rgba(0, 0, 0, .55);
+      z-index: 3;
+    }
+
+    .shot-fallback {
+      position: absolute;
+      inset: 0;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      background: radial-gradient(120% 80% at 50% 0%, #241a32, #120d1a);
+    }
+
+    .shot-fallback img {
+      width: 84px;
+      height: 84px;
+      border-radius: 22px;
+    }
+
+    .shot-fallback span {
+      font-family: 'Outfit';
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+
+    .ios-home {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      background: radial-gradient(70% 45% at 82% 12%, rgba(255, 156, 192, .28), transparent 60%), radial-gradient(60% 45% at 14% 88%, rgba(201, 166, 255, .30), transparent 60%), linear-gradient(165deg, #271f3a, #15101f);
+    }
+
+    .ios-status {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 22px 4px;
+      font-family: 'Outfit';
+      font-weight: 600;
+      font-size: .82rem;
+      color: #fff;
+    }
+
+    .ios-status .right {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .ios-grid {
+      flex: 1;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px 8px;
+      padding: 24px 16px 8px;
+      align-content: start;
+    }
+
+    .app {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .app .ic-sq {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: 14px;
+    }
+
+    .ph .ic-sq {
+      background: rgba(255, 255, 255, .09);
+      border: 1px solid rgba(255, 255, 255, .05);
+    }
+
+    .ph:nth-child(2n) .ic-sq { background: rgba(201, 166, 255, .07); }
+    .ph:nth-child(3n) .ic-sq { background: rgba(255, 156, 192, .06); }
+    .ph:nth-child(5n) .ic-sq { background: rgba(138, 217, 213, .06); }
+
+    .koko-app {
+      position: relative;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .koko-app:focus-visible {
+      outline: 2px solid var(--primary-strong);
+      outline-offset: 4px;
+      border-radius: 16px;
+    }
+
+    .koko-ic {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 1;
+      display: block;
+    }
+
+    .koko-ic img {
+      width: 100%;
+      height: 100%;
+      border-radius: 15px;
+      object-fit: cover;
+      box-shadow: 0 12px 30px -8px rgba(178, 136, 255, .85);
+      position: relative;
+      z-index: 2;
+      transition: transform .25s var(--ease);
+    }
+
+    .koko-ic.noimg {
+      background: var(--grad);
+      border-radius: 15px;
+      box-shadow: 0 12px 30px -8px rgba(178, 136, 255, .85);
+    }
+
+    .koko-app .lbl {
+      font-size: .66rem;
+      color: #fff;
+      font-weight: 600;
+      font-family: 'Inter';
+    }
+
+    .koko-app:hover .koko-ic img, .koko-app:focus-visible .koko-ic img, .koko-app:active .koko-ic img {
+      transform: scale(1.08);
+    }
+
+    .koko-ic .ring {
+      position: absolute;
+      inset: -5px;
+      border-radius: 19px;
+      border: 2.5px solid var(--secondary);
+      z-index: 1;
+      opacity: 0;
+      animation: ringpulse 2.1s var(--ease) infinite;
+    }
+
+    @keyframes ringpulse {
+      0% { transform: scale(.82); opacity: .95; }
+      70% { transform: scale(1.35); opacity: 0; }
+      100% { opacity: 0; }
+    }
+
+    .tap-hint {
+      position: absolute;
+      bottom: calc(100% + 12px);
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--grad);
+      color: #23103a;
+      font-family: 'Outfit';
+      font-weight: 700;
+      font-size: .74rem;
+      padding: 6px 13px;
+      border-radius: var(--r-pill);
+      white-space: nowrap;
+      z-index: 5;
+      box-shadow: 0 8px 20px -6px rgba(255, 156, 192, .7);
+      animation: bob 1.6s var(--ease) infinite;
+    }
+
+    .tap-hint i {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 6px solid transparent;
+      border-top-color: var(--secondary);
+    }
+
+    @keyframes bob {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(-5px); }
+    }
+
+    .ios-dock {
+      margin: auto 14px 18px;
+      padding: 11px;
+      border-radius: 26px;
+      background: rgba(255, 255, 255, .10);
+      border: 1px solid rgba(255, 255, 255, .08);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .ios-dock .ic-sq {
+      aspect-ratio: 1;
+      border-radius: 13px;
+      background: rgba(255, 255, 255, .13);
+    }
+
+    .cats {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 8px 0 clamp(40px, 6vw, 64px);
+    }
+
+    .cat {
+      font-family: 'Outfit';
+      font-weight: 600;
+      font-size: .95rem;
+      color: var(--on);
+      padding: 11px 22px;
+      border-radius: var(--r-pill);
+      background: var(--surface);
+      border: 1px solid var(--outline);
+      transition: .25s var(--ease);
+    }
+
+    .cat:hover {
+      transform: translateY(-3px);
+      border-color: var(--primary);
+      background: var(--surface-hi);
+    }
+
+    .sec {
+      padding: clamp(50px, 8vw, 90px) 0;
+    }
+
+    .sec-head {
+      max-width: 600px;
+      margin-bottom: 48px;
+    }
+
+    .sec-head.center {
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+    }
+
+    .sec-eyebrow {
+      font-family: 'Outfit';
+      font-weight: 600;
+      font-size: .8rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--secondary);
+    }
+
+    .sec h2 {
+      font-family: 'Outfit';
+      font-weight: 700;
+      font-size: clamp(2rem, 5vw, 2.9rem);
+      letter-spacing: -.02em;
+      line-height: 1.05;
+      margin: 14px 0 0;
+      text-wrap: balance;
+    }
+
+    .sec h2 + p {
+      color: var(--on-muted);
+      margin-top: 16px;
+      font-size: 1.08rem;
+      text-wrap: pretty;
+    }
+
+    .showcase {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      align-items: start;
+    }
+
+    .show-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 20px;
+    }
+
+    .show-item .device {
+      width: min(260px, 80vw);
+      animation: none;
+      transition: transform .45s var(--ease);
+    }
+
+    .show-item:nth-child(1) .device { transform: rotate(-3deg); }
+    .show-item:nth-child(3) .device { transform: rotate(3deg); }
+    .show-item:hover .device { transform: rotate(0) translateY(-8px); }
+    .show-cap h3 { font-family: 'Outfit'; font-weight: 600; font-size: 1.2rem; margin-bottom: 6px; }
+    .show-cap p { color: var(--on-muted); font-size: .95rem; max-width: 30ch; margin: 0 auto; }
+
+    #showcase { scroll-margin-top: 84px; }
+    .show-cta {
+      display: flex;
+      justify-content: center;
+      margin-top: clamp(36px, 6vw, 56px);
+    }
+    .show-cta .dl-btn { max-width: 340px; }
+
     .features {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
+      grid-template-columns: repeat(auto-fit, minmax(238px, 1fr));
+      gap: 20px;
     }
 
     .card {
       background: var(--surface);
       border: 1px solid var(--outline);
       border-radius: var(--r-md);
-      backdrop-filter: blur(24px) saturate(180%);
-      -webkit-backdrop-filter: blur(24px) saturate(180%);
-      padding: 32px;
-      transition: all 0.4s var(--ease);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 30px 26px;
+      transition: transform .35s var(--ease), border-color .35s, background .35s;
+      box-shadow: 0 15px 40px rgba(138, 45, 255, .12);
     }
 
     .card:hover {
-      transform: translateY(-8px);
-      border-color: var(--primary-strong);
+      transform: translateY(-6px);
+      border-color: var(--outline-strong);
       background: var(--surface-hi);
-      box-shadow: 0 24px 50px rgba(157, 78, 221, 0.15);
     }
 
     .card .ic {
-      width: 56px; height: 56px;
-      border-radius: 18px;
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
       display: grid;
       place-items: center;
-      margin-bottom: 24px;
-      background: rgba(199, 125, 255, 0.15);
-      border: 1px solid var(--outline-strong);
-      transition: transform 0.3s var(--ease);
+      margin-bottom: 20px;
+      background: rgba(201, 166, 255, .12);
+      border: 1px solid var(--outline);
     }
 
-    .card:hover .ic { transform: scale(1.1) rotate(5deg); }
-    .card .ic svg { width: 28px; height: 28px; stroke: var(--primary-strong); }
+    .card .ic svg { width: 26px; height: 26px; stroke: var(--primary); }
+    .card:nth-child(2) .ic svg { stroke: var(--secondary); }
+    .card:nth-child(2) .ic { background: rgba(255, 156, 192, .12); }
+    .card:nth-child(3) .ic svg { stroke: var(--tertiary); }
+    .card:nth-child(3) .ic { background: rgba(138, 217, 213, .12); }
+    .card:nth-child(4) .ic svg { stroke: var(--primary); }
+    .card h3 { font-family: 'Outfit'; font-weight: 600; font-size: 1.22rem; margin-bottom: 8px; }
+    .card p { color: var(--on-muted); font-size: .97rem; }
 
-    /* Adaptabilidad de la cuadrícula de categorías y pasos */
-    .cats {
+    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .step .num {
+      font-family: 'Outfit';
+      font-weight: 800;
+      font-size: 3rem;
+      line-height: 1;
+      background: var(--grad);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      opacity: .9;
+    }
+
+    .step h3 { font-family: 'Outfit'; font-weight: 600; font-size: 1.18rem; margin: 14px 0 8px; }
+    .step p { color: var(--on-muted); font-size: .97rem; }
+
+    .cta-final {
+      text-align: center;
+      background: linear-gradient(180deg, var(--surface-hi), var(--surface));
+      border: 1px solid var(--outline);
+      border-radius: var(--r-lg);
+      padding: clamp(40px, 7vw, 72px) 28px;
+    }
+
+    .cta-final h2 { font-family: 'Outfit'; font-weight: 700; font-size: clamp(1.8rem, 4.6vw, 2.7rem); letter-spacing: -.02em; }
+    .cta-final p { color: var(--on-muted); margin: 14px auto 30px; max-width: 46ch; }
+    .cta-final .dl-btn { max-width: 340px; margin: 0 auto; }
+
+    footer { border-top: 1px solid var(--outline); padding: 40px 0; padding-bottom: calc(40px + env(safe-area-inset-bottom)); margin-top: 40px; }
+    .foot { display: flex; align-items: center; justify-content: space-between; gap: 18px; flex-wrap: wrap; color: var(--on-dim); font-size: .9rem; }
+    .foot .brand { font-size: 1.1rem; }
+    .foot-links { display: flex; gap: 22px; flex-wrap: wrap; }
+    .foot-links a { color: var(--on-muted); transition: color .2s var(--ease); }
+    .foot-links a:hover { color: var(--primary); }
+
+    /* ---------- Reveal al hacer scroll (robusto, con failsafe) ---------- */
+    .reveal {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity .7s var(--ease), transform .7s var(--ease);
+    }
+    .reveal.in {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ---------- Toast ---------- */
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 26px;
+      transform: translate(-50%, 160%);
       display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      justify-content: center;
-      padding: 20px 0 clamp(40px, 6vw, 80px);
-    }
-    
-    .cat {
+      align-items: center;
+      gap: 10px;
+      max-width: min(92vw, 440px);
+      padding: 13px 20px;
+      border-radius: var(--r-pill);
+      background: linear-gradient(135deg, var(--surface-hi2), var(--surface-hi));
+      border: 1px solid var(--outline-strong);
+      color: var(--on);
       font-family: 'Outfit';
       font-weight: 600;
-      font-size: 1rem;
-      padding: 12px 24px;
-      border-radius: var(--r-pill);
-      background: var(--surface);
-      border: 1px solid var(--outline);
-      backdrop-filter: blur(12px);
-      transition: all 0.3s var(--ease);
+      font-size: .92rem;
+      box-shadow: var(--shadow);
+      opacity: 0;
+      pointer-events: none;
+      z-index: 200;
+      transition: transform .45s var(--ease), opacity .45s var(--ease);
     }
-    .cat:hover {
-      background: var(--primary);
-      border-color: var(--primary-strong);
-      color: #fff;
-      transform: translateY(-3px);
-      box-shadow: 0 10px 20px -5px rgba(157, 78, 221, 0.4);
+    .toast.show { transform: translate(-50%, 0); opacity: 1; }
+    .toast svg { width: 20px; height: 20px; color: var(--ok); flex: 0 0 auto; }
+
+    /* ---------- "Tócame": ocultar la pista tras el primer toque ---------- */
+    .koko-app.tapped .tap-hint {
+      opacity: 0;
+      transform: translateX(-50%) translateY(6px);
+      transition: opacity .3s var(--ease), transform .3s var(--ease);
+      pointer-events: none;
     }
 
-    .steps { 
-      display: grid; 
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); 
-      gap: 32px; 
-    }
-
-    /* Media Queries Optimizadas */
-    @media (max-width: 1024px) {
+    /* ---------- Responsive ---------- */
+    @media (max-width: 980px) {
       .hero {
         grid-template-columns: 1fr;
+        gap: clamp(30px, 6vw, 48px);
         text-align: center;
-        gap: 48px;
+        padding-top: clamp(28px, 8vw, 60px);
       }
       .hero__copy {
         display: flex;
         flex-direction: column;
         align-items: center;
       }
-      .dl-card { width: 100%; max-width: 500px; }
+      .lede { max-width: 48ch; }
+      .dl-card { width: 100%; }
+      .chips { justify-content: center; }
+      .sec-head:not(.center) { margin-left: auto; margin-right: auto; }
     }
 
-    @media (max-width: 768px) {
-      .showcase { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
-      .device { animation: none; transform: none !important; }
-      h1 { font-size: 2.8rem; }
-      .card { padding: 24px; }
-      .nav__in { padding: 12px 0; }
+    @media (max-width: 860px) {
+      .showcase {
+        grid-template-columns: 1fr;
+        gap: 46px;
+        max-width: 420px;
+        margin: 0 auto;
+      }
+      .show-item:nth-child(1) .device,
+      .show-item:nth-child(3) .device { transform: none; }
+      .steps {
+        grid-template-columns: 1fr;
+        gap: 26px;
+        max-width: 480px;
+        margin: 0 auto;
+      }
     }
 
-    @media (max-width: 480px) {
-      .dl-btn { font-size: 1.05rem; padding: 16px; }
-      h1 { font-size: 2.4rem; }
-      .brand { font-size: 1.2rem; gap: 10px; }
+    @media (max-width: 560px) {
+      .blob { filter: blur(56px); }
+      .blob.b3 { display: none; }
+      .nav__in { padding: 11px 0; }
+      .brand { font-size: 1.12rem; gap: 9px; }
       .brand .mark { width: 40px; height: 40px; }
+      .nav__cta { padding: 8px 15px; font-size: .85rem; }
+      .lede { font-size: 1.02rem; }
+      .dl-card { padding: 18px 16px; }
+      .dl-btn { font-size: 1rem; padding: 15px; }
+      .cats { gap: 8px; }
+      .cat { padding: 9px 16px; font-size: .88rem; }
+      .sec-head { margin-bottom: 34px; }
+      .card { padding: 26px 22px; }
+      .foot { justify-content: center; text-align: center; }
     }
-    
-    /* Reveal API Base */
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal { opacity: 1 !important; transform: none !important; transition: none; }
+      .blob, .device, .koko-ic .ring, .tap-hint, .dl-card.pulse { animation: none !important; }
     }
-    .reveal.in { opacity: 1; transform: none; }
+
+    /* ===== CINE+ 2.0 · responsive premium layer ===== */
+    :root{--max:1240px;--line:rgba(255,255,255,.09);--glow:0 0 80px rgba(138,45,255,.22)}
+    body{background:radial-gradient(900px 520px at 8% -8%,rgba(109,40,255,.18),transparent 62%),radial-gradient(800px 500px at 92% 18%,rgba(168,85,247,.13),transparent 64%),var(--bg)}
+    .wrap{width:min(var(--max),calc(100% - 40px))}
+    .nav{background:rgba(5,3,11,.58)}
+    .nav.scrolled{background:rgba(5,3,11,.82);border-bottom-color:var(--line);box-shadow:0 12px 35px rgba(0,0,0,.18)}
+    .nav__in{min-height:72px}
+    .brand{transition:transform .25s var(--ease),opacity .25s}
+    .brand:hover{transform:translateY(-1px);opacity:.96}
+    .brand .mark{width:44px;height:44px;border-radius:13px;box-shadow:0 0 0 1px rgba(255,255,255,.08),0 10px 30px rgba(138,45,255,.28)}
+    .nav__cta{background:rgba(138,45,255,.10);min-height:42px;display:inline-flex;align-items:center}
+    .hero{min-height:min(760px,calc(100dvh - 72px));padding-block:clamp(48px,8vw,108px);gap:clamp(40px,7vw,92px)}
+    .hero__copy{position:relative;z-index:2}
+    .eyebrow{box-shadow:inset 0 0 25px rgba(168,85,247,.05);backdrop-filter:blur(12px)}
+    h1{font-size:clamp(2.7rem,6vw,5.25rem);max-width:720px}
+    .cine-hero{font-size:1.06em;margin-top:12px}
+    .lede{max-width:52ch;font-size:clamp(1.02rem,1.6vw,1.18rem)}
+    .dl-card{max-width:500px;padding:8px;background:linear-gradient(145deg,rgba(29,16,53,.92),rgba(12,7,23,.82));border-color:var(--line);box-shadow:var(--shadow),var(--glow)}
+    .dl-btn{min-height:58px;border-radius:14px;background:linear-gradient(135deg,#6d28ff,#8a2dff 55%,#b06cff);box-shadow:0 12px 35px rgba(109,40,255,.22)}
+    .dl-btn:hover{box-shadow:0 18px 45px rgba(138,45,255,.36);filter:saturate(1.08)}
+    .status{padding:0 10px}.chips{padding:0 10px 8px}
+    .device-stage:before{content:"";position:absolute;width:min(430px,75vw);aspect-ratio:1;background:radial-gradient(circle,rgba(138,45,255,.26),transparent 68%);filter:blur(18px);z-index:-1}
+    .device{box-shadow:0 35px 90px rgba(0,0,0,.6),0 0 55px rgba(138,45,255,.18),inset 0 0 0 1px rgba(255,255,255,.06)}
+    .cats{padding-top:0;gap:10px;justify-content:flex-start;overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,transparent,#000 2%,#000 98%,transparent);mask-image:linear-gradient(90deg,transparent,#000 2%,#000 98%,transparent)}
+    .cats::-webkit-scrollbar{display:none}.cat{flex:0 0 auto;background:rgba(16,10,30,.72);backdrop-filter:blur(12px)}
+    .sec{padding-block:clamp(64px,9vw,112px)}.sec-head{max-width:680px}.sec-eyebrow{color:#b57cff}
+    .showcase{gap:clamp(20px,3vw,38px)}.show-item{padding:12px}.show-item .device{box-shadow:0 28px 65px rgba(0,0,0,.5),0 0 35px rgba(138,45,255,.12)}.show-cap{max-width:310px}
+    .card{background:linear-gradient(145deg,rgba(20,12,35,.78),rgba(11,7,20,.62));border-color:var(--line);box-shadow:0 20px 45px rgba(0,0,0,.22)}
+    .card:hover{box-shadow:0 24px 55px rgba(0,0,0,.3),0 0 30px rgba(138,45,255,.08)}
+    .steps{gap:clamp(24px,4vw,56px)}.step{position:relative;padding:4px 0 4px 4px}
+    .step:not(:last-child):after{content:"";position:absolute;top:25px;left:70px;right:-30px;height:1px;background:linear-gradient(90deg,rgba(168,85,247,.45),transparent)}
+    footer{background:rgba(3,2,7,.3)}:focus-visible{outline:2px solid #b57cff;outline-offset:4px}
+    @media(min-width:981px){.hero__copy{padding-left:clamp(0px,2vw,28px)}.device{width:min(330px,28vw)}}
+    @media(max-width:980px){.hero{min-height:auto}.hero__copy{width:100%}.device-stage{padding-top:4px}}
+    @media(max-width:700px){.wrap{width:min(100% - 28px,var(--max))}.nav__in{min-height:64px}.nav__cta{padding-inline:14px;font-size:.82rem}.brand .mark{width:40px;height:40px}.hero{padding-block:42px 58px;gap:34px}h1{font-size:clamp(2.5rem,12vw,3.8rem)}.dl-card{padding:7px}.device{width:min(300px,78vw);border-radius:40px}.screen{border-radius:31px}.cats{margin-inline:-14px;padding-inline:14px}.sec{padding-block:62px}.showcase{gap:52px}.show-item{padding:0}.features{grid-template-columns:1fr 1fr}.card{padding:24px 20px}.steps{gap:34px}.step:not(:last-child):after{display:none}}
+    @media(max-width:480px){.nav__cta{font-size:.78rem;padding:8px 12px}.brand{gap:8px;font-size:1rem}.brand .mark{width:38px;height:38px;border-radius:11px}.hero{padding-top:34px}.eyebrow{font-size:.7rem;padding:7px 12px}.lede{font-size:.98rem;margin-bottom:24px}.dl-btn{min-height:54px;font-size:1rem}.chips{gap:7px}.chip{font-size:.73rem;padding:6px 10px}.device{width:min(280px,82vw)}.features{grid-template-columns:1fr}.card{padding:25px 22px}.sec h2{font-size:clamp(1.9rem,9vw,2.45rem)}.foot-links{justify-content:center;gap:14px}}
+    @media(min-width:981px) and (max-width:1200px){.hero{gap:45px}.wrap{width:min(1120px,calc(100% - 48px))}}
+    @media(hover:none){.card:hover,.cat:hover,.dl-btn:hover{transform:none}}
+
   </style>
 </head>
 <body>
 
-  <!-- El resto del HTML se mantiene con los reemplazos a WebP aplicados -->
   <div class="field" aria-hidden="true">
     <div class="blob b1"></div>
     <div class="blob b2"></div>
@@ -469,8 +1008,8 @@
   <nav class="nav" id="nav">
     <div class="wrap nav__in">
       <a href="#top" class="brand">
-        <img src="Logos/logo.webp" alt="CINE+" class="mark" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-        <span class="mark-fallback" style="display:none;">C</span>
+        <img src="Logos/logo.webp" alt="" class="mark" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <span class="mark-fallback">C</span>
         <span class="cine-brand">CINE<span class="plus">+</span></span>
       </a>
       <a href="#descargar" class="nav__cta">Descargar APK</a>
@@ -490,15 +1029,70 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
             <span id="btnLabel">Descargar APK</span>
           </button>
-          <!-- Contenido de estado mantenido del original -->
+
+          <div class="status" id="status">
+            <span class="ind"><span class="spin"></span></span>
+            <span id="statusText">Verificando disponibilidad…</span>
+          </div>
+
+          <div class="chips">
+            <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 16V8a7 7 0 0114 0v8" stroke-linecap="round"/><circle cx="9" cy="11" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="11" r="1" fill="currentColor" stroke="none"/></svg>Android</span>
+            <span class="chip" id="sizeChip" style="display:none"></span>
+            <span class="chip" id="verChip" style="display:none"></span>
+            <span class="chip">.apk</span>
+            <span class="chip">Gratis</span>
+          </div>
         </div>
       </div>
 
       <div class="device-stage reveal">
         <div class="device">
           <div class="screen">
-            <!-- Interfaz iOS emulada con logo actualizado -->
-            <img src="Logos/logo.webp" alt="UI" style="object-fit: cover; height: 100%; width: 100%;">
+            <span class="notch"></span>
+            <div class="ios-home">
+              <div class="ios-status">
+                <span>9:41</span>
+                <span class="right">
+                  <svg viewBox="0 0 18 12" width="17" height="11"><rect x="0" y="7" width="3" height="5" rx="1" fill="#fff"/><rect x="5" y="4.5" width="3" height="7.5" rx="1" fill="#fff"/><rect x="10" y="2" width="3" height="10" rx="1" fill="#fff"/><rect x="15" y="0" width="3" height="12" rx="1" fill="#fff" opacity=".4"/></svg>
+                  <svg viewBox="0 0 16 12" width="16" height="11"><path d="M8 2.5c2.6 0 5 1 6.7 2.7l-1.4 1.4A7.5 7.5 0 008 4.5 7.5 7.5 0 002.7 6.6L1.3 5.2A9.5 9.5 0 018 2.5zm0 4c1.5 0 2.9.6 3.9 1.6l-1.4 1.4A3.5 3.5 0 008 8.5c-1 0-1.8.4-2.5 1L4.1 8.1A5.5 5.5 0 018 6.5zm0 4c.8 0 1.5.7 1.5 1.5H6.5C6.5 11.2 7.2 10.5 8 10.5z" fill="#fff"/></svg>
+                  <svg viewBox="0 0 26 13" width="24" height="12"><rect x="1" y="1.5" width="21" height="10" rx="3" fill="none" stroke="#fff" stroke-opacity=".5"/><rect x="3" y="3.5" width="15" height="6" rx="1.5" fill="#fff"/><rect x="23" y="4.5" width="2" height="4" rx="1" fill="#fff" opacity=".5"/></svg>
+                </span>
+              </div>
+
+              <div class="ios-grid">
+                <div class="app ph"><span class="ic-sq"></span></div>
+                <div class="app ph"><span class="ic-sq"></span></div>
+                <div class="app ph"><span class="ic-sq"></span></div>
+                <div class="app ph"><span class="ic-sq"></span></div>
+                <div class="app ph"><span class="ic-sq"></span></div>
+
+                <div class="app koko-app" id="kokoApp" role="button" tabindex="0" aria-label="Ver cómo es la app CINE+">
+                  <span class="tap-hint">Tócame<i></i></span>
+                  <span class="koko-ic">
+                    <span class="ring"></span>
+                    <img src="Logos/logo.webp" alt="CINE+" onerror="this.style.display='none';this.parentElement.classList.add('noimg')">
+                  </span>
+                  <span class="lbl">CINE+</span>
+                </div>
+
+                <div class="app ph"><span class="ic-sq"></span></div>
+                <div class="app ph"><span class="ic-sq"></span></div>
+                <div class="app ph"><span class="ic-sq"></span></div>
+                <div class="app ph"><span class="ic-sq"></span></div>
+                <div class="app ph"><span class="ic-sq"></span></div>
+                <div class="app ph"><span class="ic-sq"></span></div>
+                <div class="app ph"><span class="ic-sq"></span></div>
+                <div class="app ph"><span class="ic-sq"></span></div>
+                <div class="app ph"><span class="ic-sq"></span></div>
+              </div>
+
+              <div class="ios-dock">
+                <span class="ic-sq"></span>
+                <span class="ic-sq"></span>
+                <span class="ic-sq"></span>
+                <span class="ic-sq"></span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -510,38 +1104,280 @@
       <a href="#descargar" class="cat reveal">Anime</a>
       <a href="#descargar" class="cat reveal">Doramas</a>
       <a href="#descargar" class="cat reveal">Documentales</a>
+      <a href="#descargar" class="cat reveal">Infantil</a>
     </div>
 
-    <!-- Features y Showcase adaptados -->
+    <section class="sec" id="showcase">
+      <div class="sec-head center reveal">
+        <span class="sec-eyebrow">Así se ve CINE+</span>
+        <h2>Una app pensada para mirar</h2>
+        <p>Catálogo ordenado, portadas grandes y todo a un toque de distancia.</p>
+      </div>
+      <div class="showcase">
+        <div class="show-item reveal">
+          <div class="device">
+            <div class="screen">
+              <span class="notch"></span>
+              <img src="Logos/cine1.webp" alt="Estrenos destacados en CINE+" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+              <div class="shot-fallback"><img src="Logos/logo.webp" alt="" onerror="this.style.display='none'"><span>CINE+</span></div>
+            </div>
+          </div>
+          <div class="show-cap"><h3>Estrenos en portada</h3><p>Lo más nuevo te recibe nada más abrir la app.</p></div>
+        </div>
+        <div class="show-item reveal">
+          <div class="device">
+            <div class="screen">
+              <span class="notch"></span>
+              <img src="Logos/cine2.webp" alt="Contenido por categorías" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+              <div class="shot-fallback"><img src="Logos/logo.webp" alt="" onerror="this.style.display='none'"><span>CINE+</span></div>
+            </div>
+          </div>
+          <div class="show-cap"><h3>Todo por categorías</h3><p>Series, anime y más, organizados para encontrarlos rápido.</p></div>
+        </div>
+        <div class="show-item reveal">
+          <div class="device">
+            <div class="screen">
+              <span class="notch"></span>
+              <img src="Logos/cine3.webp" alt="Explorar catálogo en CINE+" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+              <div class="shot-fallback"><img src="Logos/logo.webp" alt="" onerror="this.style.display='none'"><span>CINE+</span></div>
+            </div>
+          </div>
+          <div class="show-cap"><h3>Explora sin fin</h3><p>Cientos de títulos para descubrir, ordenados para ti.</p></div>
+        </div>
+      </div>
+
+      <div class="show-cta reveal">
+        <button class="dl-btn" id="dlBtn2">
+          <span class="prog" id="prog2"></span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 21h14"/></svg>
+          <span id="btnLabel2">Descargar CINE+</span>
+        </button>
+      </div>
+    </section>
+
     <section class="sec">
+      <div class="sec-head reveal">
+        <span class="sec-eyebrow">Por qué CINE+</span>
+        <h2>Hecha para sentirse bien</h2>
+        <p>Cada detalle sigue los principios de Material Design: color, formas suaves y movimiento con intención.</p>
+      </div>
       <div class="features">
         <div class="card reveal">
           <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="15" rx="3"/><path d="M2 9h20M8 4v15"/></svg></div>
-          <h3 style="font-family: 'Outfit'; font-weight: 600; font-size: 1.25rem; margin-bottom: 8px;">Catálogo variado</h3>
-          <p style="color: var(--on-muted);">Películas, series, anime, doramas y documentales reunidos en un solo lugar.</p>
+          <h3>Catálogo variado</h3>
+          <p>Películas, series, anime, doramas y documentales reunidos en un solo lugar.</p>
         </div>
         <div class="card reveal">
           <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M3 12h18M12 3v18"/></svg></div>
-          <h3 style="font-family: 'Outfit'; font-weight: 600; font-size: 1.25rem; margin-bottom: 8px;">Diseño Material You</h3>
-          <p style="color: var(--on-muted);">Interfaz oscura, fluida y elegante. Fácil de usar desde el primer toque.</p>
+          <h3>Diseño Material You</h3>
+          <p>Interfaz oscura, fluida y elegante. Fácil de usar desde el primer toque.</p>
         </div>
         <div class="card reveal">
           <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg></div>
-          <h3 style="font-family: 'Outfit'; font-weight: 600; font-size: 1.25rem; margin-bottom: 8px;">Encuentra todo rápido</h3>
-          <p style="color: var(--on-muted);">Buscador y secciones bien ordenadas para llegar a lo que quieres en segundos.</p>
+          <h3>Encuentra todo rápido</h3>
+          <p>Buscador y secciones bien ordenadas para llegar a lo que quieres en segundos.</p>
         </div>
+        <div class="card reveal">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg></div>
+          <h3>Ligera y al día</h3>
+          <p>Tamaño reducido, animaciones suaves y mejoras frecuentes.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec">
+      <div class="sec-head reveal">
+        <span class="sec-eyebrow">Instalación</span>
+        <h2>Tres pasos y listo</h2>
+      </div>
+      <div class="steps">
+        <div class="step reveal"><div class="num">01</div><h3>Descarga el APK</h3><p>Toca el botón de descarga y guarda <strong>CINE+.apk</strong> en tu dispositivo.</p></div>
+        <div class="step reveal"><div class="num">02</div><h3>Permite la instalación</h3><p>Si Android lo pide, activa «Instalar apps desconocidas» para tu navegador.</p></div>
+        <div class="step reveal"><div class="num">03</div><h3>Abre y disfruta</h3><p>Abre el archivo descargado, confirma y empieza a ver tu contenido favorito.</p></div>
       </div>
     </section>
 
   </main>
 
+  <footer>
+    <div class="wrap foot">
+      <a href="#top" class="brand">
+        <img src="Logos/logo.webp" alt="" class="mark" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <span class="mark-fallback">C</span>
+        CINE+
+      </a>
+      <nav class="foot-links">
+        <a href="#descargar">Descargar</a>
+        <a href="privacy.html">Política de Privacidad</a>
+      </nav>
+      <span>© 2026 CINE+</span>
+    </div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>
+    <span id="toastText">Descarga iniciada…</span>
+  </div>
+
   <script>
-    // Mantenemos la lógica de scroll fluida y de descarga original.
+    /* ---------------- CINE+ · lógica del landing ---------------- */
+    const FALLBACK_URL = 'https://github.com/eafroot/CINE/raw/refs/heads/main/CINE+.apk';
+
+    const statusEl  = document.getElementById('status');
+    const statusTxt = document.getElementById('statusText');
+    const ind       = statusEl.querySelector('.ind');
+    const sizeChip  = document.getElementById('sizeChip');
+    const verChip   = document.getElementById('verChip');
+    const toast     = document.getElementById('toast');
+    const toastText = document.getElementById('toastText');
+    const koko      = document.getElementById('kokoApp');
+
+    // Botones de descarga (hero + CTA final)
+    const downloadButtons = [
+      { btn: document.getElementById('dlBtn'),  label: document.getElementById('btnLabel'),  prog: document.getElementById('prog') },
+      { btn: document.getElementById('dlBtn2'), label: document.getElementById('btnLabel2'), prog: document.getElementById('prog2') }
+    ].filter(b => b.btn);
+
+    let apkUrl  = FALLBACK_URL;
+    let apkSize = null;
+    let busy    = false;
+
+    const fmtSize = b => {
+      if (!b) return null;
+      const mb = b / 1048576;
+      return mb >= 1 ? mb.toFixed(1) + ' MB' : Math.round(b / 1024) + ' KB';
+    };
+
+    const icons = {
+      spin:  '<span class="spin"></span>',
+      check: '<svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M20 6L9 17l-5-5"/></svg>',
+      bad:   '<svg class="bad" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="18" height="18"><path d="M12 8v5M12 17h.01"/><circle cx="12" cy="12" r="9"/></svg>'
+    };
+
+    function setLabels(text, disabled) {
+      downloadButtons.forEach(({ btn, label }) => {
+        if (label) label.textContent = text;
+        btn.disabled = disabled;
+      });
+    }
+
+    function setStatus(state) {
+      statusEl.classList.remove('is-ok', 'is-bad');
+      if (state === 'checking') {
+        ind.innerHTML = icons.spin;
+        statusTxt.textContent = 'Verificando disponibilidad…';
+        setLabels('Comprobando…', true);
+      } else if (state === 'ready') {
+        ind.innerHTML = icons.check;
+        statusEl.classList.add('is-ok');
+        const s = fmtSize(apkSize);
+        statusTxt.textContent = s ? 'Archivo verificado · listo para instalar' : 'Listo para instalar';
+        if (s) { sizeChip.textContent = s; sizeChip.style.display = 'inline-flex'; }
+        setLabels('Descargar CINE+', false);
+      } else { // unverified
+        ind.innerHTML = icons.check;
+        statusEl.classList.add('is-ok');
+        statusTxt.textContent = 'Listo para descargar';
+        setLabels('Descargar CINE+', false);
+      }
+    }
+
+    // Lee cine.json para obtener la versión y la URL real del APK
+    async function loadManifest() {
+      try {
+        const res = await fetch('cine.json', { cache: 'no-store' });
+        if (res.ok) {
+          const data = await res.json();
+          if (data.url) apkUrl = data.url;
+          if (data.version && verChip) {
+            verChip.textContent = 'v' + data.version;
+            verChip.style.display = 'inline-flex';
+          }
+        }
+      } catch (e) { /* se usan los valores por defecto */ }
+    }
+
+    // Comprueba la disponibilidad sin bloquear la interfaz
+    async function verifyApk() {
+      try {
+        const res = await fetch(apkUrl, { method: 'HEAD', cache: 'no-store' });
+        if (res.ok) {
+          apkSize = parseInt(res.headers.get('content-length')) || null;
+          setStatus('ready');
+        } else {
+          setStatus('unverified');
+        }
+      } catch (e) {
+        setStatus('unverified');
+      }
+    }
+
+    function triggerDownload() {
+      const a = document.createElement('a');
+      a.href = apkUrl;
+      a.setAttribute('download', 'CINE+.apk');
+      a.rel = 'noopener';
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+    }
+
+    function showToast(msg) {
+      if (!toast) return;
+      if (toastText) toastText.textContent = msg;
+      toast.classList.add('show');
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(() => toast.classList.remove('show'), 3800);
+    }
+
+    // Descarga: barra de progreso simulada + descarga real del archivo
+    function startDownload(which) {
+      if (busy) return;
+      busy = true;
+      setLabels('Descargando…', true);
+      let progress = 0;
+
+      const interval = setInterval(() => {
+        progress += 5;
+        const w = Math.min(progress, 100) + '%';
+        downloadButtons.forEach(({ prog }) => { if (prog) prog.style.width = w; });
+
+        if (progress >= 100) {
+          clearInterval(interval);
+          triggerDownload();
+          showToast('Descarga iniciada · revisa tus notificaciones');
+
+          setTimeout(() => {
+            downloadButtons.forEach(({ prog }) => { if (prog) prog.style.width = '0%'; });
+            setLabels('Descargar CINE+', false);
+            busy = false;
+          }, 600);
+        }
+      }, 90);
+    }
+
+    downloadButtons.forEach(({ btn }) => btn.addEventListener('click', startDownload));
+
+    // "Tócame": el icono de la app lleva a las capturas para ver cómo es
+    function openApp() {
+      koko.classList.add('tapped');
+      const target = document.getElementById('showcase');
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    if (koko) {
+      koko.addEventListener('click', openApp);
+      koko.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openApp(); }
+      });
+    }
+
+    // Borde del nav al hacer scroll
     const nav = document.getElementById('nav');
     window.addEventListener('scroll', () => {
       nav.classList.toggle('scrolled', window.scrollY > 20);
     }, { passive: true });
 
+    // Animaciones reveal con failsafe (nada se queda oculto)
     function initReveal() {
       const reveals = document.querySelectorAll('.reveal');
       if ('IntersectionObserver' in window) {
@@ -554,12 +1390,20 @@
           });
         }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
         reveals.forEach(el => io.observe(el));
+        // Failsafe: si algo no se reveló en 2.5s, mostrarlo igualmente
+        setTimeout(() => reveals.forEach(el => el.classList.add('in')), 2500);
       } else {
         reveals.forEach(el => el.classList.add('in'));
       }
     }
-    
-    window.addEventListener('DOMContentLoaded', initReveal);
+
+    // Init
+    window.addEventListener('DOMContentLoaded', async () => {
+      setStatus('checking');
+      initReveal();
+      await loadManifest();
+      verifyApk();
+    });
   </script>
 </body>
 </html>
