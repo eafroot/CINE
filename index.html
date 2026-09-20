@@ -56,6 +56,8 @@
       background: #000;
     }
 
+    html.lerp { scroll-behavior: auto; }
+
     body {
       font-family: var(--sans);
       background: var(--bg);
@@ -207,7 +209,10 @@
       .nav { background: rgba(16, 16, 20, .96); }
     }
 
-    .nav-wm { font-size: 1.5rem; }
+    .nav-wm { font-size: 1.5rem; cursor: pointer; }
+    .nav-wm .plus { transition: transform .7s var(--spring); }
+    .nav-wm:hover .plus { transform: rotate(90deg) scale(1.12); }
+    html.touring .dock { transform: translateY(110%) !important; visibility: hidden !important; }
     .nav-links { display: flex; gap: 4px; }
 
     .nav-links a {
@@ -341,8 +346,7 @@
       --rx0: 0px; --ry0: 30px; --rs: 1;
       opacity: 0;
       transform: translate3d(var(--rx0), var(--ry0), 0) scale(var(--rs));
-      filter: blur(6px);
-      transition: opacity .9s var(--ease) var(--d, 0s), transform .9s var(--ease) var(--d, 0s), filter .9s var(--ease) var(--d, 0s);
+      transition: opacity .9s var(--ease) var(--d, 0s), transform .9s var(--ease) var(--d, 0s);
     }
 
     .js .rv--l { --rx0: -48px; --ry0: 0px; }
@@ -950,7 +954,7 @@
 
   <header class="nav-shell">
     <nav class="nav" id="nav" aria-label="Principal">
-      <a href="#top" class="wm nav-wm" aria-label="CINE+, ir al inicio"><span class="t">CINE</span><svg class="plus" aria-hidden="true"><use href="#plus"/></svg></a>
+      <a href="#top" class="wm nav-wm" id="navLogo" aria-label="CINE+, recorrer la página automáticamente"><span class="t">CINE</span><svg class="plus" aria-hidden="true"><use href="#plus"/></svg></a>
       <div class="nav-links">
         <a href="#categorias">Categorías</a>
         <a href="#offline">Sin internet</a>
@@ -1555,6 +1559,161 @@
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll, { passive: true });
     update();
+
+    /* =============== Scroll suave + recorrido cinematográfico =============== */
+    if (!calm) {
+      const root = document.documentElement;
+      const EASE = 0.085;      // más bajo = más suave y lento
+      const CRUISE = 175;      // velocidad de crucero del recorrido (px por segundo)
+      const RAMP_IN = 2.0;     // segundos que tarda en acelerar al empezar
+      const DECEL = 380;       // px de frenado suave al llegar al final
+
+      let target = window.scrollY, current = target;
+      let raf = 0, last = 0, glide = null, tour = null;
+
+      const maxScroll = () => document.documentElement.scrollHeight - innerHeight;
+      const clamp = v => Math.max(0, Math.min(v, maxScroll()));
+      const sync = () => { current = target = window.scrollY; };
+      const auto = () => !!(glide || tour);
+      const stopAuto = () => { glide = null; tour = null; root.classList.remove('touring'); };
+      const start = () => {
+        root.classList.add('lerp');
+        if (!raf) { last = 0; raf = requestAnimationFrame(frame); }
+      };
+
+      function beginTour() { tour = { el: 0 }; start(); }
+
+      function startTour() {
+        if (!raf) sync();
+        stopAuto();
+        root.classList.add('touring');
+        const from = current;
+        if (from > 4) {
+          // Si no estás arriba, primero vuelve al inicio suavemente
+          glide = { from: from, to: 0, t0: 0, dur: Math.min(1700, 700 + from * 0.22), done: beginTour };
+          start();
+        } else {
+          beginTour();
+        }
+      }
+
+      function frame(t) {
+        const dt = Math.min((t - (last || t)) / 1000, 0.05);
+        last = t;
+
+        if (glide) {
+          if (!glide.t0) glide.t0 = t;
+          const k = Math.min((t - glide.t0) / glide.dur, 1);
+          const e = k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2;
+          current = glide.from + (glide.to - glide.from) * e;
+          target = current;
+          if (k >= 1) { const d = glide.done; glide = null; if (d) d(); }
+        } else {
+          if (tour) {
+            tour.el += dt;
+            const rem = maxScroll() - target;
+            const kin = Math.min(tour.el / RAMP_IN, 1);
+            let v = CRUISE * kin * kin * (3 - 2 * kin);                     // arranque suave
+            if (rem < DECEL) v = Math.min(v, Math.max(14, CRUISE * Math.sqrt(Math.max(rem, 0) / DECEL))); // frenada suave
+            target = clamp(target + v * dt);
+            if (maxScroll() - target < 1) { tour = null; root.classList.remove('touring'); }
+          }
+          const diff = target - current;
+          current = Math.abs(diff) < 0.1 ? target : current + diff * (1 - Math.pow(1 - EASE, dt * 60));
+        }
+
+        window.scrollTo(0, current);
+        update();
+
+        if (glide || tour || Math.abs(target - current) >= 0.1) {
+          raf = requestAnimationFrame(frame);
+        } else {
+          raf = 0; last = 0;
+          if (!fine) root.classList.remove('lerp');
+        }
+      }
+
+      // Clic en "CINE+" de la barra: recorrido automático hasta el final
+      const logo = $('#navLogo');
+      let autoAtDown = false;
+      if (logo) {
+        logo.addEventListener('pointerdown', () => { autoAtDown = auto(); });
+        logo.addEventListener('click', e => {
+          e.preventDefault();
+          const wasAuto = autoAtDown || auto();
+          autoAtDown = false;
+          if (wasAuto) { stopAuto(); return; }
+          startTour();
+        });
+      }
+
+      // Cualquier gesto del usuario detiene el recorrido
+      window.addEventListener('mousedown', stopAuto);
+      window.addEventListener('touchstart', stopAuto, { passive: true });
+      window.addEventListener('scroll', () => { if (!raf) sync(); }, { passive: true });
+      window.addEventListener('resize', () => { target = clamp(target); }, { passive: true });
+
+      if (fine) {
+        // Rueda del mouse con inercia
+        window.addEventListener('wheel', e => {
+          if (e.ctrlKey || Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+          e.preventDefault();
+          let dy = e.deltaY;
+          if (e.deltaMode === 1) dy *= 32;
+          else if (e.deltaMode === 2) dy *= innerHeight;
+          if (!raf) sync();
+          stopAuto();
+          target = clamp(target + dy);
+          start();
+        }, { passive: false });
+
+        // Teclado
+        window.addEventListener('keydown', e => {
+          if (e.altKey || e.ctrlKey || e.metaKey) return;
+          const tag = ((e.target && e.target.tagName) || '').toLowerCase();
+          if (/^(input|textarea|select)$/.test(tag)) return;
+
+          if (e.key === 'a' || e.key === 'A') {
+            e.preventDefault();
+            if (auto()) stopAuto(); else startTour();
+            return;
+          }
+
+          if (e.key === ' ' && tag === 'button') return;
+          let d = null;
+          switch (e.key) {
+            case 'ArrowDown': d = 110; break;
+            case 'ArrowUp':   d = -110; break;
+            case 'PageDown':  d = innerHeight * 0.85; break;
+            case 'PageUp':    d = -innerHeight * 0.85; break;
+            case ' ':         d = (e.shiftKey ? -1 : 1) * innerHeight * 0.85; break;
+            case 'Home':      d = -Infinity; break;
+            case 'End':       d = Infinity; break;
+          }
+          if (d === null) return;
+          e.preventDefault();
+          if (!raf) sync();
+          stopAuto();
+          target = d === -Infinity ? 0 : d === Infinity ? maxScroll() : clamp(target + d);
+          start();
+        });
+
+        // Enlaces internos (#seccion) con desplazamiento suave
+        document.addEventListener('click', e => {
+          const a = e.target.closest && e.target.closest('a[href^="#"]');
+          if (!a || a.id === 'navLogo') return;
+          const id = a.getAttribute('href').slice(1);
+          const el = id ? document.getElementById(id) : null;
+          if (id && !el) return;
+          e.preventDefault();
+          if (!raf) sync();
+          stopAuto();
+          const to = (!id || id === 'top') ? 0 : clamp(el.getBoundingClientRect().top + window.scrollY - 84);
+          glide = { from: current, to: to, t0: 0, dur: Math.min(1900, 800 + Math.abs(to - current) * 0.28) };
+          start();
+        });
+      }
+    }
 
     /* =============== Interacciones con mouse =============== */
     if (fine && !calm) {
